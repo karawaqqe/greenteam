@@ -1,0 +1,33 @@
+.section {
+  background: var(--color-navy);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 60px;
+  align-items: start;
+}
+
+.layout :global(.section-kicker) {
+  color: #8be9fa;
+}
+
+.layout :global(.section-title) {
+  color: var(--color-white);
+}
+
+.copy {
+  display: grid;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.12rem;
+  line-height: 1.78;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}/*# sourceMappingURL=About.module.css.map */

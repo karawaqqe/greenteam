@@ -1,0 +1,122 @@
+@use '../../styles/variables' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(219, 232, 242, 0.78);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 78px;
+  gap: 24px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.logoImage {
+  width: clamp(150px, 17vw, 226px);
+  height: auto;
+  max-height: 58px;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav button {
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--color-text);
+  background: transparent;
+  font-weight: 750;
+  transition:
+    color $transition-base,
+    background $transition-base;
+}
+
+.nav button:hover {
+  color: var(--color-cyan-dark);
+  background: var(--color-cyan-soft);
+}
+
+.menuButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-small;
+  background: var(--color-white);
+}
+
+.menuButton span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 4px auto;
+  border-radius: 99px;
+  background: var(--color-navy);
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .inner {
+    min-height: 68px;
+  }
+
+  .logoImage {
+    width: clamp(136px, 44vw, 176px);
+    max-height: 50px;
+  }
+
+  .menuButton {
+    display: block;
+  }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 12px;
+    left: 12px;
+    display: grid;
+    gap: 4px;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: $radius-medium;
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity $transition-base,
+      visibility $transition-base,
+      transform $transition-base;
+  }
+
+  .navOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav button {
+    width: 100%;
+    padding: 13px;
+    text-align: left;
+  }
+}

@@ -1,0 +1,65 @@
+.section {
+  background: linear-gradient(135deg, rgba(7, 26, 45, 0.94), rgba(13, 39, 64, 0.96)), var(--color-navy);
+}
+
+.section :global(.section-kicker) {
+  color: #8be9fa;
+}
+
+.section :global(.section-title),
+.section :global(.section-copy) {
+  color: var(--color-white);
+}
+
+.section :global(.section-copy) {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.card {
+  display: grid;
+  gap: 14px;
+  min-height: 170px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px 22px 8px 22px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06)), rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.12);
+}
+
+.card span {
+  font-size: 1.7rem;
+}
+
+.card h3 {
+  color: var(--color-white);
+  font-size: 1.08rem;
+}
+
+.card p {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.45;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}/*# sourceMappingURL=Payments.module.css.map */

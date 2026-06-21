@@ -1,0 +1,300 @@
+@use '../../styles/variables' as *;
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 45, 0.97), rgba(8, 34, 54, 0.95) 62%, rgba(13, 61, 78, 0.86)),
+    var(--color-navy);
+}
+
+.section::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 82% 28%, rgba(35, 183, 214, 0.18), transparent 30rem),
+    linear-gradient(90deg, rgba(7, 26, 45, 0.72), transparent 38%, rgba(7, 26, 45, 0.26)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 25px);
+  content: '';
+  mask-image: radial-gradient(ellipse at 74% 42%, #000 0 34%, rgba(0, 0, 0, 0.52) 58%, transparent 88%);
+  pointer-events: none;
+}
+
+.section::after {
+  position: absolute;
+  right: -18%;
+  bottom: -46%;
+  z-index: 0;
+  width: min(62vw, 860px);
+  height: 86%;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(139, 233, 250, 0.16), transparent 68%);
+  content: '';
+  filter: blur(72px);
+  pointer-events: none;
+}
+
+.section > :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  max-width: 780px;
+}
+
+.section :global(.section-kicker) {
+  color: #8be9fa;
+}
+
+.section :global(.section-title),
+.section :global(.section-copy) {
+  color: var(--color-white);
+}
+
+.section :global(.section-copy) {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 56px;
+}
+
+.grid::before {
+  position: absolute;
+  top: -22px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 233, 250, 0.48), transparent);
+  content: '';
+}
+
+.card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-height: 188px;
+  padding: 8px 28px 10px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  clip-path: none;
+  transition:
+    color $transition-base,
+    transform $transition-base;
+}
+
+.card:not(:first-child)::before {
+  position: absolute;
+  top: 6px;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(139, 233, 250, 0.58), rgba(139, 233, 250, 0.22), transparent);
+  box-shadow: 0 0 18px rgba(35, 183, 214, 0.16);
+  content: '';
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.number {
+  position: absolute;
+  top: 6px;
+  right: 28px;
+  color: rgba(139, 233, 250, 0.3);
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.iconWrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  color: #8be9fa;
+  background: transparent;
+  box-shadow: none;
+}
+
+.iconWrap::after {
+  position: absolute;
+  inset: 4px;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 233, 250, 0.16), transparent 68%);
+  content: '';
+}
+
+.icon {
+  width: 34px;
+  height: 34px;
+  stroke-width: 2.1;
+}
+
+.card h3 {
+  color: var(--color-white);
+  font-size: 1.22rem;
+  line-height: 1.14;
+}
+
+.card p {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+@media (max-width: $breakpoint-desktop) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .section::before {
+    opacity: 0.76;
+    mask-image: radial-gradient(ellipse at 68% 30%, #000 0 28%, rgba(0, 0, 0, 0.42) 56%, transparent 86%);
+  }
+
+  .section > :global(.container)::before {
+    position: absolute;
+    top: 118px;
+    right: 0;
+    bottom: 24px;
+    z-index: 0;
+    width: clamp(82px, 18vw, 132px);
+    border-right: 1px solid rgba(139, 233, 250, 0.22);
+    border-top: 1px solid rgba(139, 233, 250, 0.12);
+    content: '';
+    opacity: 0.9;
+    transform: skewY(-8deg);
+    transform-origin: top right;
+    pointer-events: none;
+  }
+
+  .section > :global(.container)::after {
+    position: absolute;
+    right: clamp(26px, 7vw, 58px);
+    bottom: 62px;
+    z-index: 0;
+    width: 140px;
+    height: 140px;
+    border: 1px solid rgba(139, 233, 250, 0.1);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 233, 250, 0.08), transparent 66%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .header,
+  .grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 40px;
+    padding-right: clamp(76px, 18vw, 132px);
+  }
+
+  .grid::before {
+    right: 0;
+    left: 0;
+  }
+
+  .grid::after {
+    position: absolute;
+    top: 24px;
+    right: clamp(26px, 7vw, 58px);
+    bottom: 24px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(139, 233, 250, 0.6), rgba(139, 233, 250, 0.16), transparent);
+    box-shadow:
+      0 62px 0 0 rgba(139, 233, 250, 0.52),
+      0 126px 0 0 rgba(139, 233, 250, 0.36),
+      0 190px 0 0 rgba(139, 233, 250, 0.24),
+      0 0 22px rgba(35, 183, 214, 0.2);
+    content: '';
+    pointer-events: none;
+  }
+
+  .card {
+    min-height: auto;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    padding: 24px 0;
+  }
+
+  .card:not(:first-child) {
+    border-top: 1px solid rgba(139, 233, 250, 0.18);
+  }
+
+  .card::before,
+  .card:nth-child(odd)::before {
+    display: none;
+  }
+
+  .number {
+    top: 26px;
+    right: 0;
+  }
+
+  .iconWrap {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .section::after {
+    right: -78%;
+    width: 150vw;
+    opacity: 0.72;
+  }
+
+  .section > :global(.container)::before,
+  .section > :global(.container)::after,
+  .grid::after {
+    display: none;
+  }
+
+  .grid {
+    padding-right: 0;
+  }
+
+  .card {
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .number {
+    top: 22px;
+    font-size: 0.82rem;
+  }
+
+  .iconWrap {
+    width: 52px;
+    height: 52px;
+  }
+
+  .icon {
+    width: 31px;
+    height: 31px;
+  }
+}

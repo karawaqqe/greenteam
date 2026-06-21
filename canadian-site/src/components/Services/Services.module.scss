@@ -1,0 +1,529 @@
+@use '../../styles/variables' as *;
+
+.section {
+  position: relative;
+  overflow: visible;
+}
+
+.section::after {
+  position: absolute;
+  right: 4%;
+  bottom: -300px;
+  left: 4%;
+  z-index: 0;
+  height: 480px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(35, 183, 214, 0.07), transparent 72%);
+  content: '';
+  filter: blur(46px);
+  pointer-events: none;
+}
+
+.section > :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+.accordion {
+  --slant: 48px;
+  --closed: calc(16.6667% + 40px);
+  --step: calc(var(--closed) - var(--slant));
+  --open: clamp(500px, 52%, 640px);
+  --delta: calc(var(--open) - var(--closed));
+
+  position: relative;
+  isolation: isolate;
+  margin-top: 46px;
+}
+
+.accordion::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: min(92vw, 1840px);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(35, 183, 214, 0.5) 12%, rgba(139, 233, 250, 0.74) 50%, rgba(35, 183, 214, 0.5) 88%, transparent);
+  box-shadow: 0 0 18px rgba(35, 183, 214, 0.16);
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.row {
+  position: relative;
+  z-index: 1;
+  height: 380px;
+  min-width: 0;
+  filter: drop-shadow(0 22px 46px rgba(7, 26, 45, 0.15));
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  isolation: isolate;
+  width: var(--closed);
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--color-navy);
+  clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+  cursor: pointer;
+  transition:
+    left 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 260ms ease;
+}
+
+.card:nth-child(1) {
+  left: 0;
+}
+
+.card:nth-child(2) {
+  left: var(--step);
+}
+
+.card:nth-child(3) {
+  left: calc(var(--step) + var(--step));
+}
+
+.card:nth-child(4) {
+  left: calc(var(--step) + var(--step) + var(--step));
+}
+
+.card:nth-child(5) {
+  left: calc(var(--step) + var(--step) + var(--step) + var(--step));
+}
+
+.card:nth-child(6) {
+  left: calc(var(--step) + var(--step) + var(--step) + var(--step) + var(--step));
+}
+
+.card::before {
+  position: absolute;
+  inset: 1px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  content: '';
+  clip-path: inherit;
+  pointer-events: none;
+}
+
+.row .card:hover,
+.row .card:focus-visible,
+.row .card:focus-within {
+  z-index: 8;
+  width: var(--open);
+  filter: drop-shadow(0 30px 58px rgba(7, 26, 45, 0.24));
+}
+
+.row:has(.card:nth-child(1):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1) {
+  left: calc(0px - var(--delta));
+}
+
+.row:has(.card:nth-child(2):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+.row:has(.card:nth-child(2):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  left: calc(var(--card-left, 0px) - var(--delta));
+}
+
+.row:has(.card:nth-child(2):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  --card-left: var(--step);
+}
+
+.row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+.row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+.row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3) {
+  left: calc(var(--card-left, 0px) - var(--delta));
+}
+
+.row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  --card-left: var(--step);
+}
+
+.row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3) {
+  --card-left: calc(var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4) {
+  left: calc(var(--card-left, 0px) - var(--delta));
+}
+
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  --card-left: var(--step);
+}
+
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3) {
+  --card-left: calc(var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4) {
+  --card-left: calc(var(--step) + var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4),
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5) {
+  left: calc(var(--card-left, 0px) - var(--delta));
+}
+
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  --card-left: var(--step);
+}
+
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3) {
+  --card-left: calc(var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4) {
+  --card-left: calc(var(--step) + var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5) {
+  --card-left: calc(var(--step) + var(--step) + var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4),
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5),
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(6) {
+  left: calc(var(--card-left, 0px) - var(--delta));
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2) {
+  --card-left: var(--step);
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3) {
+  --card-left: calc(var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4) {
+  --card-left: calc(var(--step) + var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5) {
+  --card-left: calc(var(--step) + var(--step) + var(--step) + var(--step));
+}
+
+.row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(6) {
+  --card-left: calc(var(--step) + var(--step) + var(--step) + var(--step) + var(--step));
+}
+
+.card:focus-visible {
+  outline: 3px solid rgba(35, 183, 214, 0.4);
+  outline-offset: 5px;
+}
+
+.image,
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  z-index: -2;
+  object-fit: cover;
+  opacity: 0.88;
+  filter: saturate(1.06) contrast(1.01);
+  transform: scale(1.02);
+  transition:
+    opacity 320ms ease,
+    filter 320ms ease,
+    transform 520ms ease;
+}
+
+.overlay {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(7, 26, 45, 0.42), rgba(7, 26, 45, 0.08)),
+    linear-gradient(180deg, rgba(7, 26, 45, 0), rgba(7, 26, 45, 0.36));
+  transition: background 320ms ease;
+}
+
+.card:hover .image,
+.card:focus-visible .image,
+.card:focus-within .image {
+  opacity: 1;
+  filter: saturate(1.1) contrast(1.01);
+  transform: scale(1.08);
+}
+
+.card:hover .overlay,
+.card:focus-visible .overlay,
+.card:focus-within .overlay {
+  background:
+    linear-gradient(90deg, rgba(7, 26, 45, 0.38), rgba(7, 26, 45, 0.04)),
+    linear-gradient(180deg, rgba(7, 26, 45, 0), rgba(7, 26, 45, 0.32));
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 44px 30px calc(var(--slant) + 18px);
+  color: var(--color-white);
+}
+
+.content h3 {
+  order: -1;
+  max-width: 360px;
+  color: var(--color-white);
+  font-size: clamp(0.98rem, 1.36vw, 1.28rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  transition:
+    font-size 260ms ease,
+    transform 260ms ease;
+}
+
+.content p {
+  max-width: 430px;
+  margin-top: auto;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.98rem;
+  line-height: 1.62;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.card:hover .content p,
+.card:focus-visible .content p,
+.card:focus-within .content p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover .content h3,
+.card:focus-visible .content h3,
+.card:focus-within .content h3 {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  transform: translateY(-2px);
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .section {
+    overflow: hidden;
+  }
+
+  .section::after {
+    right: -40%;
+    bottom: -180px;
+    left: -40%;
+    height: 320px;
+    opacity: 0.7;
+  }
+
+  .accordion {
+    --mobile-slant: 34px;
+    margin-top: 38px;
+  }
+
+  .row {
+    display: grid;
+    height: auto;
+    gap: 14px;
+    filter: none;
+  }
+
+  .row::before {
+    position: absolute;
+    top: 26px;
+    bottom: 26px;
+    left: 50%;
+    width: 1px;
+    content: '';
+    background: linear-gradient(180deg, transparent, rgba(35, 183, 214, 0.3), transparent);
+    transform: translateX(-50%);
+  }
+
+  .accordion::before {
+    display: none;
+  }
+
+  .card,
+  .card:nth-child(1),
+  .card:nth-child(2),
+  .card:nth-child(3),
+  .card:nth-child(4),
+  .card:nth-child(5),
+  .card:nth-child(6),
+  .row .card:hover,
+  .row .card:focus-visible,
+  .row .card:focus-within,
+  .row:has(.card:nth-child(1):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(2):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(2):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+  .row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+  .row:has(.card:nth-child(3):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+  .row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+  .row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+  .row:has(.card:nth-child(4):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4),
+  .row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+  .row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+  .row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4),
+  .row:has(.card:nth-child(5):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(1),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(2),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(3),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(4),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(5),
+  .row:has(.card:nth-child(6):is(:hover, :focus-visible, :focus-within)) .card:nth-child(6) {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    width: min(92%, 560px);
+    min-height: 255px;
+    clip-path: polygon(var(--mobile-slant) 0, 100% 0, calc(100% - var(--mobile-slant)) 100%, 0 100%);
+    box-shadow: 0 18px 46px rgba(7, 26, 45, 0.13);
+    transform: none;
+  }
+
+  .card:nth-child(odd) {
+    justify-self: end;
+  }
+
+  .card:nth-child(even) {
+    justify-self: start;
+    clip-path: polygon(0 0, calc(100% - var(--mobile-slant)) 0, 100% 100%, var(--mobile-slant) 100%);
+  }
+
+  .card::before {
+    inset: 1px;
+    border-radius: 0;
+    clip-path: inherit;
+  }
+
+  .content {
+    padding: 24px 28px 24px calc(var(--mobile-slant) + 18px);
+  }
+
+  .card:nth-child(even) .content {
+    padding-right: calc(var(--mobile-slant) + 18px);
+    padding-left: 28px;
+  }
+
+  .content h3,
+  .card:hover .content h3,
+  .card:focus-visible .content h3,
+  .card:focus-within .content h3 {
+    font-size: clamp(1.55rem, 5vw, 2.05rem);
+    transform: none;
+  }
+
+  .image {
+    opacity: 0.96;
+  }
+
+  .overlay {
+    background:
+      linear-gradient(90deg, rgba(7, 26, 45, 0.38), rgba(7, 26, 45, 0.06)),
+      linear-gradient(180deg, rgba(7, 26, 45, 0), rgba(7, 26, 45, 0.36));
+  }
+
+  .content p {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .accordion {
+    --mobile-slant: 28px;
+  }
+
+  .section::after {
+    bottom: -140px;
+    height: 260px;
+    filter: blur(38px);
+  }
+
+  .row {
+    gap: 12px;
+  }
+
+  .row::before {
+    display: none;
+  }
+
+  .card,
+  .card:nth-child(1),
+  .card:nth-child(2),
+  .card:nth-child(3),
+  .card:nth-child(4),
+  .card:nth-child(5),
+  .card:nth-child(6) {
+    width: min(100%, 520px);
+    min-height: 260px;
+    border-radius: 0;
+    clip-path: polygon(var(--mobile-slant) 0, 100% 0, calc(100% - var(--mobile-slant)) 100%, 0 100%);
+  }
+
+  .card:nth-child(odd) {
+    justify-self: end;
+  }
+
+  .card:nth-child(even) {
+    justify-self: start;
+    clip-path: polygon(0 0, calc(100% - var(--mobile-slant)) 0, 100% 100%, var(--mobile-slant) 100%);
+  }
+
+  .content {
+    padding: 24px calc(var(--mobile-slant) + 18px) 24px calc(var(--mobile-slant) + 22px);
+  }
+
+  .card:nth-child(even) .content {
+    padding-right: calc(var(--mobile-slant) + 22px);
+    padding-left: calc(var(--mobile-slant) + 18px);
+  }
+
+  .card::before {
+    inset: 1px;
+    border-radius: 0;
+    clip-path: inherit;
+  }
+
+  .overlay,
+  .card:hover .overlay,
+  .card:focus-visible .overlay,
+  .card:focus-within .overlay {
+    background:
+      linear-gradient(90deg, rgba(7, 26, 45, 0.58), rgba(7, 26, 45, 0.1)),
+      linear-gradient(180deg, rgba(7, 26, 45, 0.12), rgba(7, 26, 45, 0.52));
+  }
+
+  .content h3,
+  .card:hover .content h3,
+  .card:focus-visible .content h3,
+  .card:focus-within .content h3 {
+    max-width: min(100%, 340px);
+    font-size: clamp(1.55rem, 8vw, 2.05rem);
+    line-height: 1.05;
+  }
+
+  .content p {
+    max-width: min(100%, 350px);
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+}

@@ -1,0 +1,65 @@
+.footer {
+  color: rgba(255, 255, 255, 0.78);
+  background: var(--color-navy);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(160px, 0.45fr));
+  gap: 42px;
+  padding: 56px 0 34px;
+}
+
+.brand a {
+  color: var(--color-white);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.brand p {
+  max-width: 420px;
+  margin-top: 14px;
+  line-height: 1.65;
+}
+
+.footer nav {
+  display: grid;
+  align-content: start;
+  gap: 11px;
+}
+
+.footer h2 {
+  margin-bottom: 4px;
+  color: var(--color-white);
+  font-size: 1rem;
+}
+
+.footer nav a,
+.footer nav button {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  text-align: left;
+  transition: color 180ms ease;
+}
+
+.footer nav a:hover,
+.footer nav button:hover {
+  color: #8be9fa;
+}
+
+.bottom {
+  padding: 20px 0 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.58);
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}/*# sourceMappingURL=Footer.module.css.map */
