@@ -21,15 +21,27 @@ const benefits = [
 
 function WhyChooseUs() {
   return (
-    <section className="section" id="why-choose-us">
-      <div className="container">
-        <span className="section-kicker">Why choose us</span>
-        <h2 className="section-title">Professional, straightforward service without inflated promises.</h2>
+    <section className={`section ${styles.section}`} id="why-choose-us">
+      <div className={`container ${styles.layout}`}>
+        <div className={styles.intro}>
+          <span className="section-kicker">Why choose us</span>
+          <h2 className="section-title">Professional, straightforward service without inflated promises.</h2>
+          <p>
+            We keep the process clear from the first call to the final ventilation window, so every
+            treatment is planned around the actual space instead of one-size-fits-all claims.
+          </p>
+
+          <div className={styles.highlights} aria-label="Service highlights">
+            <span>Mobile service</span>
+            <span>Clear timing</span>
+            <span>No overpromising</span>
+          </div>
+        </div>
 
         <div className={styles.grid}>
           {benefits.map((benefit) => (
             <article className={styles.item} key={benefit.title}>
-              <span aria-hidden="true" />
+              <span className={styles.marker} aria-hidden="true" />
               <h3>{benefit.title}</h3>
               <p>{benefit.text}</p>
             </article>

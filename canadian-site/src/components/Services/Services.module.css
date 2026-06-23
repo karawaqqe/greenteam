@@ -1,14 +1,55 @@
+.section {
+  position: relative;
+  overflow: visible;
+}
+
+.section::after {
+  position: absolute;
+  right: 4%;
+  bottom: -300px;
+  left: 4%;
+  z-index: 0;
+  height: 480px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(35, 183, 214, 0.07), transparent 72%);
+  content: "";
+  filter: blur(46px);
+  pointer-events: none;
+}
+
+.section > :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
 .accordion {
   --slant: 48px;
   --closed: calc(16.6667% + 40px);
   --step: calc(var(--closed) - var(--slant));
   --open: clamp(500px, 52%, 640px);
   --delta: calc(var(--open) - var(--closed));
+  position: relative;
+  isolation: isolate;
   margin-top: 46px;
+}
+
+.accordion::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: min(92vw, 1840px);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(35, 183, 214, 0.5) 12%, rgba(139, 233, 250, 0.74) 50%, rgba(35, 183, 214, 0.5) 88%, transparent);
+  box-shadow: 0 0 18px rgba(35, 183, 214, 0.16);
+  content: "";
+  transform: translate(-50%, -50%);
 }
 
 .row {
   position: relative;
+  z-index: 1;
   height: 380px;
   min-width: 0;
   filter: drop-shadow(0 22px 46px rgba(7, 26, 45, 0.15));
@@ -223,25 +264,6 @@
   color: var(--color-white);
 }
 
-.label {
-  width: -moz-fit-content;
-  width: fit-content;
-  margin-top: auto;
-  margin-bottom: 12px;
-  padding: 7px 10px;
-  border: 1px solid rgba(139, 233, 250, 0.36);
-  border-radius: 999px;
-  background: rgba(7, 26, 45, 0.44);
-  color: #9deeff;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 260ms ease, transform 260ms ease;
-}
-
 .content h3 {
   order: -1;
   max-width: 360px;
@@ -256,7 +278,7 @@
 
 .content p {
   max-width: 430px;
-  margin-top: 0;
+  margin-top: auto;
   color: rgba(255, 255, 255, 0.84);
   font-size: 0.98rem;
   line-height: 1.62;
@@ -265,9 +287,6 @@
   transition: opacity 260ms ease, transform 260ms ease;
 }
 
-.card:hover .label,
-.card:focus-visible .label,
-.card:focus-within .label,
 .card:hover .content p,
 .card:focus-visible .content p,
 .card:focus-within .content p {
@@ -282,7 +301,80 @@
   transform: translateY(-2px);
 }
 
+@media (min-width: 769px) and (max-width: 1600px) {
+  .accordion {
+    margin-top: 44px;
+  }
+  .accordion::before {
+    display: none;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 34px;
+    height: auto;
+    filter: none;
+  }
+  .card,
+  .card:nth-child(1),
+  .card:nth-child(2),
+  .card:nth-child(3),
+  .card:nth-child(4),
+  .card:nth-child(5),
+  .card:nth-child(6),
+  .row .card:hover,
+  .row .card:focus-visible,
+  .row .card:focus-within {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto !important;
+    width: 100% !important;
+    min-height: clamp(185px, 15vw, 230px);
+    clip-path: none;
+    border-radius: 8px;
+    box-shadow: 0 18px 42px rgba(7, 26, 45, 0.12);
+    transform: none;
+  }
+  .card::before {
+    clip-path: none;
+    border-color: rgba(255, 255, 255, 0.2);
+    border-radius: inherit;
+  }
+  .content {
+    padding: 28px 32px;
+  }
+  .content h3,
+  .card:hover .content h3,
+  .card:focus-visible .content h3,
+  .card:focus-within .content h3 {
+    max-width: 520px;
+    font-size: clamp(1.45rem, 2.25vw, 2.05rem);
+    transform: none;
+  }
+  .content p {
+    max-width: 560px;
+    opacity: 1;
+    transform: none;
+  }
+  .overlay,
+  .card:hover .overlay,
+  .card:focus-visible .overlay,
+  .card:focus-within .overlay {
+    background: linear-gradient(90deg, rgba(7, 26, 45, 0.58), rgba(7, 26, 45, 0.16)), linear-gradient(180deg, rgba(7, 26, 45, 0.08), rgba(7, 26, 45, 0.5));
+  }
+}
 @media (max-width: 768px) {
+  .section {
+    overflow: hidden;
+  }
+  .section::after {
+    right: -40%;
+    bottom: -180px;
+    left: -40%;
+    height: 320px;
+    opacity: 0.7;
+  }
   .accordion {
     --mobile-slant: 34px;
     margin-top: 38px;
@@ -302,6 +394,9 @@
     content: "";
     background: linear-gradient(180deg, transparent, rgba(35, 183, 214, 0.3), transparent);
     transform: translateX(-50%);
+  }
+  .accordion::before {
+    display: none;
   }
   .card,
   .card:nth-child(1),
@@ -376,13 +471,20 @@
   .overlay {
     background: linear-gradient(90deg, rgba(7, 26, 45, 0.38), rgba(7, 26, 45, 0.06)), linear-gradient(180deg, rgba(7, 26, 45, 0), rgba(7, 26, 45, 0.36));
   }
-  .label,
   .content p {
     opacity: 1;
     transform: none;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
+  .accordion {
+    --mobile-slant: 28px;
+  }
+  .section::after {
+    bottom: -140px;
+    height: 260px;
+    filter: blur(38px);
+  }
   .row {
     gap: 12px;
   }
@@ -396,20 +498,29 @@
   .card:nth-child(4),
   .card:nth-child(5),
   .card:nth-child(6) {
-    width: 100%;
-    min-height: 285px;
-    justify-self: stretch;
-    border-radius: 22px 22px 8px 22px;
-    clip-path: none;
+    width: min(100%, 520px);
+    min-height: 260px;
+    border-radius: 0;
+    clip-path: polygon(var(--mobile-slant) 0, 100% 0, calc(100% - var(--mobile-slant)) 100%, 0 100%);
   }
-  .content,
+  .card:nth-child(odd) {
+    justify-self: end;
+  }
+  .card:nth-child(even) {
+    justify-self: start;
+    clip-path: polygon(0 0, calc(100% - var(--mobile-slant)) 0, 100% 100%, var(--mobile-slant) 100%);
+  }
+  .content {
+    padding: 24px calc(var(--mobile-slant) + 18px) 24px calc(var(--mobile-slant) + 22px);
+  }
   .card:nth-child(even) .content {
-    padding: 22px;
+    padding-right: calc(var(--mobile-slant) + 22px);
+    padding-left: calc(var(--mobile-slant) + 18px);
   }
   .card::before {
-    inset: 12px;
-    border-radius: 16px 16px 5px 16px;
-    clip-path: none;
+    inset: 1px;
+    border-radius: 0;
+    clip-path: inherit;
   }
   .overlay,
   .card:hover .overlay,
@@ -421,13 +532,13 @@
   .card:hover .content h3,
   .card:focus-visible .content h3,
   .card:focus-within .content h3 {
-    max-width: min(100%, 320px);
+    max-width: min(100%, 340px);
     font-size: clamp(1.55rem, 8vw, 2.05rem);
     line-height: 1.05;
   }
   .content p {
-    max-width: min(100%, 330px);
-    font-size: 0.98rem;
+    max-width: min(100%, 350px);
+    font-size: 0.96rem;
     line-height: 1.55;
   }
 }/*# sourceMappingURL=Services.module.css.map */

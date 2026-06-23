@@ -134,9 +134,53 @@
     clip-path: polygon(0 0, 100% 0, 100% 34%, 38% 72%, 0 44%);
   }
 }
+@media (max-width: 640px) {
+  .hero,
+  .inner {
+    min-height: auto;
+  }
+  .hero::before {
+    height: 84px;
+    clip-path: polygon(0 62%, 58% 20%, 100% 52%, 100% 100%, 0 100%);
+  }
+  .heroImage {
+    -o-object-position: 58% center;
+       object-position: 58% center;
+  }
+  .inner {
+    padding: 58px 0 108px;
+  }
+  .content h1 {
+    font-size: clamp(2.6rem, 10.5vw, 3.35rem);
+  }
+  .subtitle {
+    margin-top: 22px;
+    font-size: clamp(1.12rem, 4.8vw, 1.32rem);
+  }
+  .description {
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+  .actions {
+    margin-top: 30px;
+  }
+}
 @media (max-width: 420px) {
+  .hero,
+  .inner {
+    min-height: auto;
+  }
+  .hero::before {
+    height: 76px;
+    clip-path: polygon(0 62%, 58% 18%, 100% 52%, 100% 100%, 0 100%);
+  }
+  .inner {
+    padding: 52px 0 96px;
+  }
   .actions {
     display: grid;
+    gap: 12px;
+    margin-top: 28px;
   }
   .topCut {
     height: 36px;
