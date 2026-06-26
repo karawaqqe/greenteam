@@ -5,7 +5,7 @@ function Services() {
   return (
     <section className={`section ${styles.section}`} id="services">
       <div className="container">
-        <span className="section-kicker">Services</span>
+        <span className="section-kicker">About</span>
         <h2 className="section-title">Odor treatment options for vehicles, homes and businesses.</h2>
         <p className="section-copy">
           Professional ozone treatment is designed for unwanted odors caused by smoke,

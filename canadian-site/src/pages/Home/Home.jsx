@@ -8,10 +8,10 @@ import ServiceTiles from '../../components/ServiceTiles/ServiceTiles.jsx'
 import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs.jsx'
 import styles from './Home.module.scss'
 
-function Home() {
+function Home({ onContactClick }) {
   return (
     <div className={styles.home}>
-      <Hero />
+      <Hero onContactClick={onContactClick} />
       <ServiceTiles />
       <Services />
       <HowItWorks />

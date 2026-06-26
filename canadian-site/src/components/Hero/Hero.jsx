@@ -1,7 +1,7 @@
 import heroImage from '../../assets/images/ozone-service-hero.png'
 import styles from './Hero.module.scss'
 
-function Hero() {
+function Hero({ onContactClick }) {
   return (
     <section className={styles.hero} id="home">
       <img
@@ -22,12 +22,9 @@ function Hero() {
             across Chilliwack and the Fraser Valley.
           </p>
           <div className={styles.actions}>
-            <a className="btn btn-primary" href="#contact">
-              Get a Quote
-            </a>
-            <a className="btn btn-secondary" href="#contact">
+            <button className="btn btn-secondary" type="button" onClick={onContactClick}>
               Contact Us
-            </a>
+            </button>
           </div>
         </div>
       </div>

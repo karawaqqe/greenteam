@@ -3,13 +3,13 @@ import styles from './Footer.module.scss'
 
 const quickLinks = [
   { label: 'Home', id: 'home' },
-  { label: 'Services', id: 'services' },
+  { label: 'Services', id: 'service-options' },
+  { label: 'About', id: 'about' },
   { label: 'How It Works', id: 'how-it-works' },
   { label: 'Payments', id: 'payments' },
-  { label: 'Contact', id: 'contact' },
 ]
 
-function Footer() {
+function Footer({ onContactClick }) {
   const year = new Date().getFullYear()
   const location = useLocation()
   const navigate = useNavigate()
@@ -43,6 +43,9 @@ function Footer() {
               {link.label}
             </button>
           ))}
+          <button type="button" onClick={onContactClick}>
+            Contact
+          </button>
         </nav>
 
         <nav aria-label="Legal links">

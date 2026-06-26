@@ -18,8 +18,8 @@ function PrivacyPolicy() {
 
           <h2>Information We May Collect</h2>
           <p>
-            We may collect contact details such as your name, email address, phone number,
-            service location and information about the service you request.
+            We may collect contact details such as your name, email address, service
+            location and information about the service you request.
           </p>
 
           <h2>How Information May Be Used</h2>

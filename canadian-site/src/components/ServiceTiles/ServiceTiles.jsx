@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import boatIcon from '../../assets/icons/boat-transparent.png'
 import carIcon from '../../assets/icons/car-transparent.png'
 import commercialIcon from '../../assets/icons/Commercial & Property Managers-transparent.png'
@@ -10,26 +11,32 @@ import styles from './ServiceTiles.module.scss'
 const serviceTiles = [
   {
     title: 'Homes & Rentals',
+    slug: 'homes-rentals',
     icon: homeIcon,
   },
   {
     title: 'Commercial & Property Managers',
+    slug: 'commercial-property-managers',
     icon: commercialIcon,
   },
   {
     title: 'Cars',
+    slug: 'cars',
     icon: carIcon,
   },
   {
     title: 'Gyms & Sports',
+    slug: 'gyms-sports',
     icon: gymIcon,
   },
   {
     title: 'RV & Boats',
+    slug: 'rv-boats',
     icon: boatIcon,
   },
   {
     title: 'Hotels / Airbnb',
+    slug: 'hotels-airbnb',
     icon: hotelIcon,
   },
 ]
@@ -45,7 +52,7 @@ function ServiceTiles() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
           <span className={styles.kicker}>Our services</span>
-          <h2>Professional Ozone Cleaning for Every Space</h2>
+          <h2>Services</h2>
           <p>
             Green Team uses ozone treatment to help remove stubborn odors from homes,
             vehicles, rentals, gyms, hotels and commercial spaces.
@@ -64,12 +71,12 @@ function ServiceTiles() {
         <div className={styles.panel}>
           <div className={styles.grid}>
             {serviceTiles.map((service) => (
-              <button className={styles.tile} type="button" key={service.title}>
+              <Link className={styles.tile} to={`/services/${service.slug}`} key={service.title}>
                 <span className={styles.title}>{service.title}</span>
                 <span className={styles.iconWrap}>
                   <img src={service.icon} alt="" aria-hidden="true" />
                 </span>
-              </button>
+              </Link>
             ))}
           </div>
         </div>

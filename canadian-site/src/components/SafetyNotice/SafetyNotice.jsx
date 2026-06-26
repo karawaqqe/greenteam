@@ -2,7 +2,7 @@ import styles from './SafetyNotice.module.scss'
 
 function SafetyNotice() {
   return (
-    <section className="section" id="safety">
+    <section className={`${styles.section} section`} id="safety">
       <div className="container">
         <article className={styles.notice}>
           <span className={styles.icon} aria-hidden="true">
