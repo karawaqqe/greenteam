@@ -134,8 +134,34 @@
 }
 
 .fullWidth,
-.form button {
+.form button,
+.statusMessage {
   grid-column: 1 / -1;
+}
+
+.form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.statusMessage {
+  padding: 14px 16px;
+  border-radius: $radius-small;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.success {
+  border: 1px solid rgba(72, 167, 92, 0.22);
+  background: rgba(230, 248, 236, 0.78);
+  color: #137a32;
+}
+
+.error {
+  border: 1px solid rgba(210, 76, 76, 0.22);
+  background: rgba(255, 239, 239, 0.9);
+  color: #9f2727;
 }
 
 @media (max-width: $breakpoint-tablet) {

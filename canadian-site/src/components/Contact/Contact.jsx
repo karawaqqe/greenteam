@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Contact.module.scss'
 
 const serviceTypes = [
@@ -13,6 +13,7 @@ const serviceTypes = [
 
 function Contact({ selectedService = '', isModal = false, onClose }) {
   const hasSelectedService = Boolean(selectedService)
+  const [submitStatus, setSubmitStatus] = useState('idle')
 
   useEffect(() => {
     if (!isModal) {
@@ -38,6 +39,45 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
     }
   }, [isModal, onClose])
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if (submitStatus === 'sending') {
+      return
+    }
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const requestData = {
+      name: String(formData.get('name') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      phone: String(formData.get('phone') || '').trim(),
+      serviceType: String(formData.get('serviceType') || '').trim(),
+      message: String(formData.get('message') || '').trim(),
+    }
+
+    setSubmitStatus('sending')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Contact request failed')
+      }
+
+      form.reset()
+      setSubmitStatus('success')
+    } catch {
+      setSubmitStatus('error')
+    }
+  }
+
   const content = (
     <>
       <div className={`container ${styles.layout}`}>
@@ -54,13 +94,7 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
           <p className={styles.contactLine}>gt.chilliwack@gmail.com</p>
         </div>
 
-        <form
-          className={styles.form}
-          action="https://formsubmit.co/andr2010mac@gmail.com"
-          method="POST"
-        >
-          <input type="hidden" name="_subject" value="New Green Clean Solutions request" />
-          <input type="hidden" name="_template" value="table" />
+        <form className={styles.form} onSubmit={handleSubmit}>
           <label>
             Name
             <input name="name" type="text" autoComplete="name" required />
@@ -71,7 +105,7 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
           </label>
           <label>
             Phone
-            <input name="phone" type="tel" autoComplete="tel" />
+            <input name="phone" type="tel" autoComplete="tel" required />
           </label>
           {hasSelectedService ? (
             <div className={styles.selectedService}>
@@ -99,9 +133,21 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
             <textarea name="message" rows="5" required />
           </label>
 
-          <button className="btn btn-primary" type="submit">
-            Send Request
+          <button className="btn btn-primary" type="submit" disabled={submitStatus === 'sending'}>
+            {submitStatus === 'sending' ? 'Sending...' : 'Send Request'}
           </button>
+
+          {submitStatus === 'success' && (
+            <p className={`${styles.statusMessage} ${styles.success}`}>
+              Thank you! Your request has been sent successfully.
+            </p>
+          )}
+
+          {submitStatus === 'error' && (
+            <p className={`${styles.statusMessage} ${styles.error}`}>
+              Something went wrong. Please try again later.
+            </p>
+          )}
         </form>
       </div>
     </>
