@@ -37,7 +37,7 @@ function Cookies() {
 
           <h2>Contact</h2>
           <p>
-            Questions about this cookies policy can be sent to contact@example.com.
+            Questions about this cookies policy can be sent to gt.chilliwack@gmail.com.
           </p>
         </article>
       </div>

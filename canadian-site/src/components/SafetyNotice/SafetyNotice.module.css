@@ -1,23 +1,61 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(35, 183, 214, 0.05), transparent 18%, transparent 82%, rgba(35, 183, 214, 0.05)), var(--color-white);
+}
+
 .notice {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 20px;
-  padding: 30px;
-  border: 1px solid rgba(241, 184, 75, 0.44);
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(241, 184, 75, 0.14), transparent 45%), var(--color-white);
-  box-shadow: var(--shadow-card);
+  gap: 28px;
+  align-items: start;
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  padding: clamp(4px, 7vw, 82px) 0;
+}
+
+.notice::before,
+.notice::after {
+  position: absolute;
+  top: clamp(28px, 6vw, 58px);
+  bottom: clamp(28px, 6vw, 58px);
+  width: 3px;
+  background: linear-gradient(180deg, rgba(35, 183, 214, 0.2), #8be9fa 18%, #8be9fa 82%, rgba(35, 183, 214, 0.2));
+  clip-path: polygon(62% 0, 100% 1.5%, 38% 100%, 0 98.5%);
+  content: "";
+}
+
+.notice::before {
+  left: -42px;
+}
+
+.notice::after {
+  right: -42px;
+  transform: scaleX(-1);
 }
 
 .icon {
-  display: inline-grid;
-  width: 42px;
-  height: 42px;
+  display: grid;
+  width: 22px;
+  height: 34px;
   place-items: center;
-  border-radius: 50%;
   color: var(--color-navy);
-  background: #fff4d8;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
   font-weight: 900;
+  line-height: 1;
+}
+
+.icon::after {
+  width: 18px;
+  height: 2px;
+  margin-top: -5px;
+  background: linear-gradient(90deg, rgba(241, 184, 75, 0.9), transparent);
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  content: "";
 }
 
 .notice h2 {
@@ -34,8 +72,25 @@
 }
 
 @media (max-width: 420px) {
+  .notice::before,
+  .notice::after {
+    top: 22px;
+    bottom: 22px;
+    width: 2px;
+  }
+  .notice::before {
+    left: 0;
+  }
+  .notice::after {
+    right: 0;
+  }
   .notice {
     grid-template-columns: 1fr;
-    padding: 24px;
+    gap: 12px;
+    padding: 34px 18px;
+  }
+  .icon {
+    width: 18px;
+    height: 26px;
   }
 }/*# sourceMappingURL=SafetyNotice.module.css.map */

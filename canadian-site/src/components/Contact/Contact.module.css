@@ -2,6 +2,56 @@
   background: linear-gradient(180deg, var(--color-surface), var(--color-white));
 }
 
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(7, 26, 45, 0.54);
+  backdrop-filter: blur(10px);
+}
+
+.modal {
+  position: relative;
+  width: min(100%, 1060px);
+  max-height: min(90vh, 820px);
+  overflow: auto;
+  border: 1px solid rgba(219, 232, 242, 0.72);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--color-surface), var(--color-white));
+  box-shadow: 0 28px 76px rgba(7, 26, 45, 0.3);
+}
+
+.modalContainer {
+  padding: 36px 0;
+}
+
+.closeButton {
+  position: sticky;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin: 14px 14px -56px auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-card);
+}
+
+.closeButton:hover {
+  color: var(--color-cyan-dark);
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
@@ -11,16 +61,6 @@
 
 .info :global(.section-copy) {
   margin-bottom: 28px;
-}
-
-.quickActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.quickActions :global(.btn-secondary) {
-  border-color: var(--color-border);
 }
 
 .contactLine {
@@ -47,6 +87,24 @@
   font-weight: 800;
 }
 
+.selectedService {
+  display: grid;
+  gap: 8px;
+  color: var(--color-navy);
+  font-weight: 800;
+}
+
+.selectedService strong {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  border: 1px solid rgba(72, 167, 92, 0.24);
+  border-radius: 8px;
+  background: rgba(230, 248, 236, 0.72);
+  padding: 13px 14px;
+  color: var(--color-navy);
+}
+
 .form input,
 .form select,
 .form textarea {
@@ -70,26 +128,35 @@
 }
 
 .fullWidth,
-.form button,
-.success {
+.form button {
   grid-column: 1/-1;
 }
 
-.success {
-  padding: 14px 16px;
-  border-radius: 8px;
-  background: var(--color-cyan-soft);
-  color: var(--color-navy);
-  font-weight: 800;
-}
-
 @media (max-width: 768px) {
+  .modalBackdrop {
+    padding: 14px;
+  }
+  .modalContainer {
+    padding: 28px 0;
+  }
   .layout {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 420px) {
-  .quickActions,
+  .modalBackdrop {
+    padding: 8px;
+  }
+  .modal {
+    max-height: 94vh;
+  }
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    margin: 10px 10px -48px auto;
+  }
   .form {
     display: grid;
   }

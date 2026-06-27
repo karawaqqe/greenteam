@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './Contact.module.scss'
 
 const serviceTypes = [
@@ -12,7 +12,6 @@ const serviceTypes = [
 ]
 
 function Contact({ selectedService = '', isModal = false, onClose }) {
-  const [submitted, setSubmitted] = useState(false)
   const hasSelectedService = Boolean(selectedService)
 
   useEffect(() => {
@@ -20,7 +19,8 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
       return undefined
     }
 
-    const previousOverflow = document.body.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+    const previousHtmlOverflow = document.documentElement.style.overflow
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         onClose?.()
@@ -28,18 +28,15 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
     }
 
     document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      document.body.style.overflow = previousOverflow
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousHtmlOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isModal, onClose])
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setSubmitted(true)
-  }
 
   const content = (
     <>
@@ -54,16 +51,16 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
             next steps and scheduling information.
           </p>
 
-          <div className={styles.quickActions}>
-            <a className="btn btn-secondary" href="mailto:contact@example.com">
-              Email us
-            </a>
-          </div>
-
-          <p className={styles.contactLine}>contact@example.com</p>
+          <p className={styles.contactLine}>gt.chilliwack@gmail.com</p>
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          className={styles.form}
+          action="https://formsubmit.co/andr2010mac@gmail.com"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New Green Clean Solutions request" />
+          <input type="hidden" name="_template" value="table" />
           <label>
             Name
             <input name="name" type="text" autoComplete="name" required />
@@ -105,8 +102,6 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
           <button className="btn btn-primary" type="submit">
             Send Request
           </button>
-
-          {submitted && <p className={styles.success}>Thank you! We will contact you soon.</p>}
         </form>
       </div>
     </>

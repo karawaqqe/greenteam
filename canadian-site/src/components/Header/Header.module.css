@@ -1,6 +1,8 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 20;
   border-bottom: 1px solid rgba(219, 232, 242, 0.78);
   background: rgba(255, 255, 255, 0.9);
@@ -12,32 +14,58 @@
   align-items: center;
   justify-content: space-between;
   min-height: 78px;
-  gap: 24px;
+  gap: 18px;
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
+  gap: 12px;
   flex: 0 0 auto;
   min-width: 0;
 }
 
 .logoImage {
-  width: clamp(150px, 17vw, 226px);
-  height: auto;
-  max-height: 58px;
+  width: clamp(42px, 5vw, 56px);
+  height: clamp(42px, 5vw, 56px);
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.logoText {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.05;
+}
+
+.logoTitle {
+  color: #11953c;
+  font-family: var(--font-heading);
+  font-size: clamp(0.98rem, 1.35vw, 1.2rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.logoSubtitle {
+  color: var(--color-muted);
+  font-size: clamp(0.58rem, 0.78vw, 0.72rem);
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .nav button {
-  padding: 10px 13px;
+  padding: 10px 11px;
   border: 0;
   border-radius: 999px;
   color: var(--color-text);
@@ -49,6 +77,88 @@
 .nav button:hover {
   color: var(--color-cyan-dark);
   background: var(--color-cyan-soft);
+}
+
+.servicesItem {
+  position: relative;
+}
+
+.servicesButton {
+  position: relative;
+}
+
+.servicesMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 190px));
+  gap: 8px;
+  width: min(420px, 100vw - 32px);
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -8px);
+  transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
+}
+
+.servicesMenu::before {
+  position: absolute;
+  top: -13px;
+  right: 0;
+  left: 0;
+  height: 13px;
+  content: "";
+}
+
+.servicesItem:hover .servicesMenu,
+.servicesItem:focus-within .servicesMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.serviceLink {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 58px;
+  padding: 8px 10px;
+  border: 1px solid rgba(219, 232, 242, 0.78);
+  border-radius: 8px;
+  color: var(--color-navy);
+  background: var(--color-white);
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.18;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.serviceLink:hover {
+  border-color: rgba(72, 167, 92, 0.34);
+  background: var(--color-cyan-soft);
+  color: var(--color-cyan-dark);
+  transform: translateY(-2px);
+}
+
+.serviceIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+}
+
+.serviceIcon img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .menuButton {
@@ -75,8 +185,14 @@
     min-height: 68px;
   }
   .logoImage {
-    width: clamp(136px, 44vw, 176px);
-    max-height: 50px;
+    width: 48px;
+    height: 48px;
+  }
+  .logoTitle {
+    font-size: 0.96rem;
+  }
+  .logoSubtitle {
+    font-size: 0.56rem;
   }
   .menuButton {
     display: block;
@@ -94,12 +210,14 @@
     background: var(--color-white);
     box-shadow: var(--shadow-soft);
     opacity: 0;
+    pointer-events: none;
     visibility: hidden;
     transform: translateY(-8px);
     transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
   }
   .navOpen {
     opacity: 1;
+    pointer-events: auto;
     visibility: visible;
     transform: translateY(0);
   }
@@ -107,5 +225,57 @@
     width: 100%;
     padding: 13px;
     text-align: left;
+  }
+  .servicesItem {
+    display: grid;
+    gap: 8px;
+  }
+  .servicesMenu {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    padding: 8px;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+  }
+  .nav:not(.navOpen) .servicesMenu {
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .navOpen .servicesMenu {
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .servicesMenu::before {
+    display: none;
+  }
+  .servicesItem:hover .servicesMenu,
+  .servicesItem:focus-within .servicesMenu {
+    transform: none;
+  }
+  .serviceLink {
+    min-height: 54px;
+  }
+}
+@media (max-width: 420px) {
+  .logo {
+    gap: 9px;
+  }
+  .logoImage {
+    width: 42px;
+    height: 42px;
+  }
+  .logoTitle {
+    font-size: 0.82rem;
+  }
+  .logoSubtitle {
+    max-width: 160px;
+    font-size: 0.5rem;
+    line-height: 1.18;
+    white-space: normal;
+  }
+  .servicesMenu {
+    grid-template-columns: 1fr;
   }
 }/*# sourceMappingURL=Header.module.css.map */

@@ -1,5 +1,3 @@
-@use '../../styles/variables' as *;
-
 .page {
   background: var(--color-white);
 }
@@ -16,10 +14,8 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  content: '';
-  background:
-    linear-gradient(100deg, rgba(7, 26, 45, 0.95), rgba(7, 26, 45, 0.72) 48%, rgba(7, 26, 45, 0.26)),
-    linear-gradient(24deg, rgba(35, 183, 214, 0.22), transparent 48%);
+  content: "";
+  background: linear-gradient(100deg, rgba(7, 26, 45, 0.95), rgba(7, 26, 45, 0.72) 48%, rgba(7, 26, 45, 0.26)), linear-gradient(24deg, rgba(35, 183, 214, 0.22), transparent 48%);
 }
 
 .heroImage {
@@ -28,7 +24,8 @@
   z-index: -2;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   opacity: 0.86;
 }
 
@@ -40,6 +37,7 @@
 }
 
 .backLink {
+  width: -moz-max-content;
   width: max-content;
   margin-bottom: 32px;
   color: #d9f7ff;
@@ -90,9 +88,7 @@
 }
 
 .details {
-  background:
-    radial-gradient(ellipse at 82% 20%, rgba(72, 167, 92, 0.1), transparent 32rem),
-    linear-gradient(180deg, var(--color-surface), var(--color-white));
+  background: radial-gradient(ellipse at 82% 20%, rgba(72, 167, 92, 0.1), transparent 32rem), linear-gradient(180deg, var(--color-surface), var(--color-white));
 }
 
 .detailsGrid {
@@ -141,8 +137,8 @@
 .safetyMetering {
   display: grid;
   gap: 36px;
-  margin-top: clamp(112px, 11vw, 148px);
-  padding-top: 77px;
+  margin-top: clamp(84px, 9vw, 112px);
+  padding-top: 4px;
 }
 
 .monitoringCopy {
@@ -156,9 +152,9 @@
 .monitoringCopy p {
   max-width: 980px;
   margin: 0 auto;
-  color: var(--color-text);
-  font-size: 1.02rem;
-  line-height: 1.7;
+  color: var(--color-navy);
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.62;
 }
 
 .insuranceNote {
@@ -171,9 +167,9 @@
 
 .insuranceNote p {
   color: var(--color-cyan-dark);
-  font-size: 1.02rem;
-  font-weight: 800;
-  line-height: 1.7;
+  font-size: clamp(0.98rem, 1.35vw, 1.1rem);
+  font-weight: 750;
+  line-height: 1.35;
 }
 
 .shieldIcon {
@@ -208,7 +204,7 @@
 .pricePanel {
   padding: 28px;
   border: 1px solid var(--color-border);
-  border-radius: $radius-small;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-card);
 }
@@ -247,68 +243,56 @@
   width: 100%;
 }
 
-@media (max-width: $breakpoint-tablet) {
+@media (max-width: 768px) {
   .hero,
   .heroInner {
     min-height: 460px;
   }
-
   .heroInner {
     padding: 44px 0 58px;
   }
-
   .detailsGrid {
     grid-template-columns: 1fr;
   }
-
   .safetyMetering {
-    margin-top: 104px;
+    margin-top: 78px;
   }
-
   .monitoringCopy {
     padding-right: clamp(32px, 8vw, 72px);
     padding-left: clamp(32px, 8vw, 72px);
   }
 }
-
-@media (max-width: $breakpoint-mobile) {
+@media (max-width: 420px) {
   .contactCta {
     margin-top: 4px;
   }
-
   .heroFacts {
     display: grid;
   }
-
   .processStep {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-
   .safetyMetering {
     gap: 28px;
-    margin-top: 88px;
+    margin-top: 64px;
   }
-
   .monitoringCopy {
     gap: 20px;
     padding: 2px 18px;
   }
-
   .insuranceNote {
     align-items: flex-start;
     justify-content: flex-start;
   }
-
   .shieldIcon {
     width: 48px;
     height: 48px;
     border-width: 2.25px;
   }
-
   .shieldIcon svg {
     width: 28px;
     height: 28px;
     stroke-width: 2;
   }
-}
+}/*# sourceMappingURL=ServiceDetail.module.css.map */
