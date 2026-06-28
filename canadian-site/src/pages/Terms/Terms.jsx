@@ -6,14 +6,11 @@ function Terms() {
       <div className="container">
         <article className="legal-card">
           <h1>Terms of Use</h1>
-          <p className="template-notice">
-            This page is a general template and should be reviewed by the business owner
-            and a qualified legal professional before publication.
-          </p>
+          <p className="template-notice">Last updated: June 2026</p>
 
           <p>
             By using this website, you agree to use it for lawful purposes and understand
-            that the information provided is general service information.
+            that the information provided is general service information for Green Team.
           </p>
 
           <h2>Service Information</h2>
@@ -28,6 +25,13 @@ function Terms() {
             size, access, odor issue and required treatment conditions.
           </p>
 
+          <h2>Customer Responsibilities</h2>
+          <p>
+            Customers are responsible for providing accurate service details, confirming
+            access instructions and following preparation and re-entry guidance provided for
+            the appointment.
+          </p>
+
           <h2>Safety Requirements</h2>
           <p>
             Ozone treatment must be performed only in unoccupied spaces. People, pets and
@@ -38,6 +42,11 @@ function Terms() {
           <h2>Website Changes</h2>
           <p>
             We may update website content, service details and these terms from time to time.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            Questions about these terms can be sent to gt.chilliwack@gmail.com.
           </p>
         </article>
       </div>

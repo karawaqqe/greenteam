@@ -32,7 +32,7 @@ function Footer({ onContactClick }) {
     <footer className={styles.footer}>
       <div className={`container ${styles.layout}`}>
         <div className={styles.brand}>
-          <Link to="/">OzonePro</Link>
+          <Link to="/">Green Team</Link>
           <p>Professional ozone odor removal services in Chilliwack and the Fraser Valley.</p>
         </div>
 
@@ -57,7 +57,7 @@ function Footer({ onContactClick }) {
       </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>© {year} OzonePro. All rights reserved.</p>
+        <p>&copy; {year} Green Team. All rights reserved.</p>
       </div>
     </footer>
   )

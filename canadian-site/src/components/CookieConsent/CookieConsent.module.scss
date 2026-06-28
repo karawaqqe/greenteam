@@ -1,0 +1,153 @@
+@use '../../styles/variables' as *;
+
+.backdrop {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 90;
+  padding: 18px;
+  pointer-events: none;
+}
+
+.dialog {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid rgba(219, 232, 242, 0.94);
+  border-radius: $radius-medium;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 62px rgba(7, 26, 45, 0.18);
+  pointer-events: auto;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(17, 132, 161, 0.18);
+  border-radius: 50%;
+  background: var(--color-cyan-soft);
+  color: var(--color-cyan-dark);
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.copy h2 {
+  color: var(--color-navy);
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+
+.copy p {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.links a {
+  color: var(--color-cyan-dark);
+  font-size: 0.88rem;
+  font-weight: 850;
+}
+
+.links a:hover {
+  color: var(--color-navy);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.actions :global(.btn) {
+  min-height: 42px;
+  padding: 0 18px;
+  white-space: nowrap;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-weight: 850;
+  white-space: nowrap;
+  transition:
+    transform $transition-base,
+    border-color $transition-base,
+    color $transition-base;
+}
+
+.secondaryButton:hover {
+  border-color: rgba(17, 132, 161, 0.38);
+  color: var(--color-cyan-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .dialog {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    justify-content: stretch;
+  }
+
+  .actions :global(.btn),
+  .secondaryButton {
+    flex: 1 1 180px;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .backdrop {
+    padding: 10px;
+  }
+
+  .dialog {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .actions {
+    display: grid;
+  }
+
+  .actions :global(.btn),
+  .secondaryButton {
+    width: 100%;
+  }
+}

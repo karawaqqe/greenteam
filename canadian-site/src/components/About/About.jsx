@@ -5,7 +5,7 @@ function About() {
     <section className={`section ${styles.section}`} id="about">
       <div className={`container ${styles.layout}`}>
         <div>
-          <span className="section-kicker">About OzonePro</span>
+          <span className="section-kicker">About Green Team</span>
           <h2 className="section-title">Local ozone odor removal service with a careful, practical approach.</h2>
         </div>
         <div className={styles.copy}>
