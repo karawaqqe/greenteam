@@ -74,13 +74,11 @@
   text-transform: uppercase;
 }
 
-.kicker::before {
-  width: 18px;
-  height: 18px;
-  border: 2px solid currentColor;
-  border-radius: 999px 999px 999px 0;
-  content: "";
-  transform: rotate(-28deg);
+.kickerIcon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: currentColor;
 }
 
 .kicker::after {
@@ -145,8 +143,11 @@
 
 .serviceNotes span {
   position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   min-height: 78px;
-  padding: 20px 18px 20px 52px;
+  padding: 20px 18px;
   background: rgba(255, 255, 255, 0.86);
   color: var(--color-navy);
   font-size: 0.94rem;
@@ -154,27 +155,12 @@
   line-height: 1.35;
 }
 
-.serviceNotes span::before {
-  position: absolute;
-  top: 22px;
-  left: 21px;
-  width: 15px;
-  height: 15px;
-  border-radius: 999px 999px 999px 0;
-  background: linear-gradient(135deg, #54b56a, #23b7d6);
-  content: "";
-  transform: rotate(-28deg);
-}
-
-.serviceNotes span::after {
-  position: absolute;
-  top: 26px;
-  left: 28px;
-  width: 12px;
-  height: 1px;
-  background: rgba(7, 26, 45, 0.36);
-  content: "";
-  transform: rotate(-28deg);
+.noteIcon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: #46a65b;
 }
 
 .panel {
@@ -245,8 +231,7 @@
 .iconWrap img {
   width: 100%;
   height: auto;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   filter: drop-shadow(0 10px 16px rgba(72, 167, 92, 0.12));
   transition: transform 220ms ease;
 }
@@ -350,7 +335,7 @@
   }
   .serviceNotes span {
     min-height: 72px;
-    padding: 18px 14px 18px 46px;
+    padding: 18px 14px;
     font-size: 0.88rem;
   }
   .panel {
@@ -426,4 +411,6 @@
   .iconWrap {
     width: min(34%, 92px);
   }
-}/*# sourceMappingURL=ServiceTiles.module.css.map */
+}
+
+/*# sourceMappingURL=ServiceTiles.module.css.map */

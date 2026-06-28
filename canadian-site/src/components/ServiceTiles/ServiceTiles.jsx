@@ -41,6 +41,50 @@ const serviceTiles = [
   },
 ]
 
+function CircleDotIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="1" />
+    </svg>
+  )
+}
+
+function BriefcaseBusinessIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 12h.01" />
+      <path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      <path d="M22 13a18.15 18.15 0 0 1-20 0" />
+      <rect width="20" height="14" x="2" y="6" rx="2" />
+    </svg>
+  )
+}
+
 function ServiceTiles() {
   return (
     <section className={styles.section} id="service-options" aria-label="Choose a service">
@@ -51,7 +95,10 @@ function ServiceTiles() {
       />
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
-          <span className={styles.kicker}>Our services</span>
+          <span className={styles.kicker}>
+            <BriefcaseBusinessIcon className={styles.kickerIcon} />
+            Our services
+          </span>
           <h2>Services</h2>
           <p>
             Green Team uses ozone treatment to help remove stubborn odors from homes,
@@ -62,9 +109,18 @@ function ServiceTiles() {
             and scheduling details.
           </p>
           <div className={styles.serviceNotes} aria-label="Service notes">
-            <span>Flexible scheduling</span>
-            <span>Evening options available</span>
-            <span>Fresh-air ventilation guidance</span>
+            <span>
+              <CircleDotIcon className={styles.noteIcon} />
+              Flexible scheduling
+            </span>
+            <span>
+              <CircleDotIcon className={styles.noteIcon} />
+              Evening options available
+            </span>
+            <span>
+              <CircleDotIcon className={styles.noteIcon} />
+              Fresh-air ventilation guidance
+            </span>
           </div>
         </div>
 
