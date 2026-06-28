@@ -23,7 +23,7 @@ function Hero({ onContactClick }) {
           </p>
           <div className={styles.actions}>
             <button className="btn btn-secondary" type="button" onClick={onContactClick}>
-              Contact Us
+              Book Service
             </button>
           </div>
         </div>

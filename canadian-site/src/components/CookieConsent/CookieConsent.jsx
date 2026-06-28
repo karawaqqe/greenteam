@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './CookieConsent.module.scss'
 
 const consentStorageKey = 'green-team-cookie-consent'
 
 function CookieConsent() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const savedConsent = window.localStorage.getItem(consentStorageKey)
-
-    if (!savedConsent) {
-      setIsVisible(true)
-    }
-  }, [])
+  const [isVisible, setIsVisible] = useState(
+    () => typeof window !== 'undefined' && !window.localStorage.getItem(consentStorageKey),
+  )
 
   const saveConsent = (value) => {
     window.localStorage.setItem(consentStorageKey, value)

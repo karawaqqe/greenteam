@@ -211,14 +211,17 @@ main {
   justify-content: center;
   min-height: 48px;
   padding: 0 22px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 999px;
   font-weight: 800;
   letter-spacing: 0;
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68), 0 14px 34px rgba(7, 26, 45, 0.12);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .btn:hover {
+  border-color: rgba(255, 255, 255, 0.72);
   transform: translateY(-2px);
 }
 
@@ -233,15 +236,17 @@ textarea:focus-visible {
 }
 
 .btn-primary {
-  color: var(--color-white);
-  background: linear-gradient(135deg, var(--color-cyan), var(--color-cyan-dark) 58%, var(--color-navy-soft));
-  box-shadow: 0 16px 30px rgba(17, 132, 161, 0.25);
+  color: var(--color-navy);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.36)), rgba(255, 255, 255, 0.3);
+  border-color: rgba(7, 26, 45, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86), 0 16px 34px rgba(7, 26, 45, 0.12);
 }
 
 .btn-secondary {
-  color: var(--color-navy);
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.8);
+  color: var(--color-white);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08)), rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.42);
+  text-shadow: 0 1px 12px rgba(7, 26, 45, 0.36);
 }
 
 .legal-page {
@@ -333,4 +338,6 @@ textarea:focus-visible {
   .legal-card {
     padding: 22px;
   }
-}/*# sourceMappingURL=global.css.map */
+}
+
+/*# sourceMappingURL=global.css.map */

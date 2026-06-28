@@ -43,8 +43,8 @@ function Footer({ onContactClick }) {
               {link.label}
             </button>
           ))}
-          <button type="button" onClick={onContactClick}>
-            Contact
+          <button className={styles.footerCta} type="button" onClick={onContactClick}>
+            Book Service
           </button>
         </nav>
 

@@ -2,6 +2,7 @@ import { Resend } from 'resend'
 
 const requiredFields = ['name', 'email', 'phone', 'serviceType', 'message']
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const defaultFromEmail = 'Green Team Website <onboarding@resend.dev>'
 
 const escapeHtml = (value) =>
   String(value)
@@ -12,6 +13,28 @@ const escapeHtml = (value) =>
     .replace(/'/g, '&#39;')
 
 const normalizeValue = (value) => String(value ?? '').trim()
+
+const getEnvValue = (name) => normalizeValue(process.env[name])
+
+const getEmailAddress = (value) => {
+  const normalizedValue = normalizeValue(value)
+  const match = normalizedValue.match(/<([^>]+)>/)
+
+  return match ? match[1] : normalizedValue
+}
+
+const getEmailDomain = (value) => {
+  const email = getEmailAddress(value)
+  const domain = email.includes('@') ? email.split('@').pop() : ''
+
+  return domain || 'unknown'
+}
+
+const getSafeResendError = (error) => ({
+  name: error?.name || 'unknown_error',
+  message: error?.message || 'Unknown Resend error',
+  statusCode: error?.statusCode ?? error?.status ?? null,
+})
 
 const buildHtmlEmail = ({ name, email, phone, serviceType, message, submittedAt }) => {
   const fieldStyle = 'margin:0 0 6px;color:#64778a;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;'
@@ -90,13 +113,27 @@ export default async function handler(req, res) {
     return
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    res.status(500).json({ error: 'RESEND_API_KEY is missing' })
+  const resendApiKey = getEnvValue('RESEND_API_KEY')
+  const contactToEmail = getEnvValue('CONTACT_TO_EMAIL')
+  const contactFromEmail = getEnvValue('CONTACT_FROM_EMAIL') || defaultFromEmail
+
+  if (!resendApiKey) {
+    console.error('Contact email configuration error:', {
+      missing: 'RESEND_API_KEY',
+      contactToEmailConfigured: Boolean(contactToEmail),
+      fromDomain: getEmailDomain(contactFromEmail),
+    })
+    res.status(500).json({ error: 'Email service is not configured' })
     return
   }
 
-  if (!process.env.CONTACT_TO_EMAIL) {
-    res.status(500).json({ error: 'CONTACT_TO_EMAIL is missing' })
+  if (!contactToEmail) {
+    console.error('Contact email configuration error:', {
+      missing: 'CONTACT_TO_EMAIL',
+      resendApiKeyConfigured: Boolean(resendApiKey),
+      fromDomain: getEmailDomain(contactFromEmail),
+    })
+    res.status(500).json({ error: 'Email recipient is not configured' })
     return
   }
 
@@ -129,21 +166,55 @@ export default async function handler(req, res) {
 
   const submittedAt = new Date().toISOString()
   const emailData = { ...data, submittedAt }
-  const resend = new Resend(process.env.RESEND_API_KEY)
+  const resend = new Resend(resendApiKey)
 
   try {
-    await resend.emails.send({
-      from: 'Green Team Website <onboarding@resend.dev>',
-      to: process.env.CONTACT_TO_EMAIL,
+    const sendResult = await resend.emails.send({
+      from: contactFromEmail,
+      to: contactToEmail,
       replyTo: data.email,
-      subject: 'New Service Request — Green Team',
+      subject: 'New Service Request - Green Team',
       html: buildHtmlEmail(emailData),
       text: buildTextEmail(emailData),
     })
 
+    if (sendResult.error) {
+      const resendError = getSafeResendError(sendResult.error)
+
+      console.error('Resend returned an error for contact email:', {
+        ...resendError,
+        fromDomain: getEmailDomain(contactFromEmail),
+        toDomain: getEmailDomain(contactToEmail),
+        toConfigured: Boolean(contactToEmail),
+      })
+
+      res.status(resendError.statusCode >= 400 ? resendError.statusCode : 502).json({
+        error: 'Failed to send contact request',
+        providerError: resendError.name,
+      })
+      return
+    }
+
+    console.info('Contact email sent:', {
+      id: sendResult.data?.id,
+      fromDomain: getEmailDomain(contactFromEmail),
+      toDomain: getEmailDomain(contactToEmail),
+    })
+
     res.status(200).json({ ok: true })
   } catch (error) {
-    console.error('Failed to send contact email:', error)
-    res.status(500).json({ error: 'Failed to send contact request' })
+    const resendError = getSafeResendError(error)
+
+    console.error('Failed to send contact email:', {
+      ...resendError,
+      fromDomain: getEmailDomain(contactFromEmail),
+      toDomain: getEmailDomain(contactToEmail),
+      toConfigured: Boolean(contactToEmail),
+    })
+
+    res.status(500).json({
+      error: 'Failed to send contact request',
+      providerError: resendError.name,
+    })
   }
 }

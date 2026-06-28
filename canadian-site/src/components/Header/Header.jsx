@@ -119,8 +119,8 @@ function Header({ onContactClick }) {
               {item.label}
             </button>
           ))}
-          <button type="button" onClick={() => { setIsOpen(false); onContactClick?.() }}>
-            Contact
+          <button className={styles.navCta} type="button" onClick={() => { setIsOpen(false); onContactClick?.() }}>
+            Book Service
           </button>
         </nav>
       </div>

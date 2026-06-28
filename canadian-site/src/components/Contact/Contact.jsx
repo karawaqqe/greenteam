@@ -14,6 +14,7 @@ const serviceTypes = [
 function Contact({ selectedService = '', isModal = false, onClose }) {
   const hasSelectedService = Boolean(selectedService)
   const [submitStatus, setSubmitStatus] = useState('idle')
+  const [submitError, setSubmitError] = useState('')
 
   useEffect(() => {
     if (!isModal) {
@@ -57,6 +58,7 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
     }
 
     setSubmitStatus('sending')
+    setSubmitError('')
 
     try {
       const response = await fetch('/api/contact', {
@@ -66,14 +68,16 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
         },
         body: JSON.stringify(requestData),
       })
+      const responseData = await response.json().catch(() => ({}))
 
       if (!response.ok) {
-        throw new Error('Contact request failed')
+        throw new Error(responseData.error || 'Contact request failed')
       }
 
       form.reset()
       setSubmitStatus('success')
-    } catch {
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Contact request failed')
       setSubmitStatus('error')
     }
   }
@@ -145,7 +149,7 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
 
           {submitStatus === 'error' && (
             <p className={`${styles.statusMessage} ${styles.error}`}>
-              Something went wrong. Please try again later.
+              {submitError || 'Something went wrong. Please try again later.'}
             </p>
           )}
         </form>

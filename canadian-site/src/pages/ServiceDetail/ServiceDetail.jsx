@@ -97,7 +97,7 @@ function ServiceDetail({ onContactClick }) {
 
               <div className={styles.contactCta}>
                 <button className="btn btn-primary" type="button" onClick={() => onContactClick(service.title)}>
-                  Contact
+                  Book Service
                 </button>
               </div>
             </div>
