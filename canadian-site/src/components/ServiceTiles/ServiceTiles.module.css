@@ -231,7 +231,8 @@
 .iconWrap img {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   filter: drop-shadow(0 10px 16px rgba(72, 167, 92, 0.12));
   transition: transform 220ms ease;
 }
@@ -411,6 +412,4 @@
   .iconWrap {
     width: min(34%, 92px);
   }
-}
-
-/*# sourceMappingURL=ServiceTiles.module.css.map */
+}/*# sourceMappingURL=ServiceTiles.module.css.map */
