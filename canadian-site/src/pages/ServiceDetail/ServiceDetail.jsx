@@ -52,11 +52,21 @@ function ServiceDetail({ onContactClick }) {
               <aside className={styles.pricePanel} aria-label={`${service.title} pricing`}>
                 <h2>Prices</h2>
                 <p>Starting prices in Canadian dollars. Final quotes depend on size, odor level and access.</p>
-                <ul>
-                  {service.pricing.map((price) => (
-                    <li key={price}>{price}</li>
+                <div className={styles.priceGroups}>
+                  {service.pricing.map((group) => (
+                    <section className={styles.priceGroup} key={group.group} aria-label={group.group}>
+                      <h3>{group.group}</h3>
+                      <ul>
+                        {group.items.map((item) => (
+                          <li key={`${group.group}-${item.name}`}>
+                            <span>{item.name}</span>
+                            <strong>{item.price}</strong>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
                   ))}
-                </ul>
+                </div>
               </aside>
 
               <div className={styles.contactCta}>

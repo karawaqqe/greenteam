@@ -224,19 +224,71 @@
   line-height: 1.65;
 }
 
+.priceGroups {
+  display: grid;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.priceGroup {
+  min-width: 0;
+}
+
+.priceGroup h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-cyan-dark);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.priceGroup h3::before {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px 999px 999px 0;
+  background: linear-gradient(135deg, #54b56a, var(--color-cyan));
+  content: '';
+  transform: rotate(-28deg);
+}
+
 .pricePanel ul {
   display: grid;
-  gap: 12px;
-  margin-top: 22px;
+  gap: 0;
+  margin-top: 10px;
   list-style: none;
 }
 
 .pricePanel li {
-  padding: 16px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 0;
   border-top: 1px solid var(--color-border);
+  line-height: 1.45;
+}
+
+.pricePanel li:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pricePanel li span {
+  min-width: 0;
   color: var(--color-navy);
   font-weight: 850;
-  line-height: 1.45;
+}
+
+.pricePanel li strong {
+  color: var(--color-cyan-dark);
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 900;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .contactCta {
@@ -272,6 +324,20 @@
 }
 
 @media (max-width: $breakpoint-mobile) {
+  .pricePanel {
+    padding: 24px;
+  }
+
+  .pricePanel li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    align-items: start;
+  }
+
+  .pricePanel li strong {
+    text-align: left;
+  }
+
   .contactCta {
     margin-top: 4px;
   }
