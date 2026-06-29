@@ -1,18 +1,17 @@
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './PrivacyPolicy.module.scss'
 
 function PrivacyPolicy() {
+  const { t } = useLanguage()
+
   return (
     <section className={`legal-page ${styles.page}`}>
       <div className="container">
         <article className="legal-card">
-          <h1>Privacy Policy</h1>
-          <p className="template-notice">Last updated: June 2026</p>
+          <h1>{t('legalPages.privacyTitle')}</h1>
+          <p className="template-notice">{t('legalPages.updated')}</p>
 
-          <p>
-            Green Team respects your privacy. This policy explains what information we may
-            collect when you use this website, request a quote or contact us about ozone
-            odor removal services.
-          </p>
+          <p>{t('legalPages.privacyIntro')}</p>
 
           <h2>Information We May Collect</h2>
           <p>
@@ -48,10 +47,8 @@ function PrivacyPolicy() {
             and contact us to ask about information you previously provided.
           </p>
 
-          <h2>Contact</h2>
-          <p>
-            Questions about this privacy policy can be sent to gt.chilliwack@gmail.com.
-          </p>
+          <h2>{t('legalPages.contactHeading')}</h2>
+          <p>{t('legalPages.contactText')}</p>
         </article>
       </div>
     </section>

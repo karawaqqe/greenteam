@@ -6,6 +6,7 @@ import gymIcon from '../../assets/icons/gym-transparent.png'
 import homeIcon from '../../assets/icons/home-transparent.png'
 import hotelIcon from '../../assets/icons/hotel-transparent.png'
 import leafDecorImage from '../../assets/images/lists/list-transparent.png'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './ServiceTiles.module.scss'
 
 const serviceTiles = [
@@ -86,8 +87,15 @@ function BriefcaseBusinessIcon({ className }) {
 }
 
 function ServiceTiles() {
+  const { serviceItems, t } = useLanguage()
+  const localizedServiceTiles = serviceTiles.map((service) => ({
+    ...service,
+    title: serviceItems.find((item) => item.slug === service.slug)?.title || service.title,
+  }))
+  const notes = t('serviceTiles.notes')
+
   return (
-    <section className={styles.section} id="service-options" aria-label="Choose a service">
+    <section className={styles.section} id="service-options" aria-label={t('serviceTiles.aria')}>
       <span
         className={styles.leafDecor}
         style={{ '--leaf-decor-image': `url(${leafDecorImage})` }}
@@ -97,36 +105,24 @@ function ServiceTiles() {
         <div className={styles.copy}>
           <span className={styles.kicker}>
             <BriefcaseBusinessIcon className={styles.kickerIcon} />
-            Our services
+            {t('serviceTiles.kicker')}
           </span>
-          <h2>Services</h2>
-          <p>
-            Green Team uses ozone treatment to help remove stubborn odors from homes,
-            vehicles, rentals, gyms, hotels and commercial spaces.
-          </p>
-          <p>
-            Pick the space that fits your situation. We will use it later to guide the quote
-            and scheduling details.
-          </p>
-          <div className={styles.serviceNotes} aria-label="Service notes">
-            <span>
-              <CircleDotIcon className={styles.noteIcon} />
-              Flexible scheduling
-            </span>
-            <span>
-              <CircleDotIcon className={styles.noteIcon} />
-              Evening options available
-            </span>
-            <span>
-              <CircleDotIcon className={styles.noteIcon} />
-              Fresh-air ventilation guidance
-            </span>
+          <h2>{t('serviceTiles.title')}</h2>
+          <p>{t('serviceTiles.text1')}</p>
+          <p>{t('serviceTiles.text2')}</p>
+          <div className={styles.serviceNotes} aria-label={t('serviceTiles.notesAria')}>
+            {notes.map((note) => (
+              <span key={note}>
+                <CircleDotIcon className={styles.noteIcon} />
+                {note}
+              </span>
+            ))}
           </div>
         </div>
 
         <div className={styles.panel}>
           <div className={styles.grid}>
-            {serviceTiles.map((service) => (
+            {localizedServiceTiles.map((service) => (
               <Link className={styles.tile} to={`/services/${service.slug}`} key={service.title}>
                 <span className={styles.title}>{service.title}</span>
                 <span className={styles.iconWrap}>

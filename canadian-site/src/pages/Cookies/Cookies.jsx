@@ -1,18 +1,17 @@
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Cookies.module.scss'
 
 function Cookies() {
+  const { t } = useLanguage()
+
   return (
     <section className={`legal-page ${styles.page}`}>
       <div className="container">
         <article className="legal-card">
-          <h1>Cookies Policy</h1>
-          <p className="template-notice">Last updated: June 2026</p>
+          <h1>{t('legalPages.cookiesTitle')}</h1>
+          <p className="template-notice">{t('legalPages.updated')}</p>
 
-          <p>
-            This cookies policy explains how the Green Team website may use cookies, local
-            storage or similar technologies to support basic website functionality and remember
-            your preferences.
-          </p>
+          <p>{t('legalPages.cookiesIntro')}</p>
 
           <h2>What Cookies Are</h2>
           <p>
@@ -43,10 +42,8 @@ function Cookies() {
             cookies.
           </p>
 
-          <h2>Contact</h2>
-          <p>
-            Questions about this cookies policy can be sent to gt.chilliwack@gmail.com.
-          </p>
+          <h2>{t('legalPages.contactHeading')}</h2>
+          <p>{t('legalPages.contactText')}</p>
         </article>
       </div>
     </section>

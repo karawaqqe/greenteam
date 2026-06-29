@@ -1,4 +1,4 @@
-import { payments } from '../../data/payments.js'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Payments.module.scss'
 
 const icons = {
@@ -60,19 +60,19 @@ function PaymentIcon({ name }) {
 }
 
 function Payments() {
+  const { paymentItems, t } = useLanguage()
+
   return (
     <section className={`section ${styles.section}`} id="payments">
       <div className="container">
         <div className={styles.header}>
-          <span className="section-kicker">Payments</span>
-          <h2 className="section-title">We Accept</h2>
-          <p className="section-copy">
-            Choose the payment method that works best for your residential or commercial service.
-          </p>
+          <span className="section-kicker">{t('payments.kicker')}</span>
+          <h2 className="section-title">{t('payments.title')}</h2>
+          <p className="section-copy">{t('payments.copy')}</p>
         </div>
 
         <div className={styles.grid}>
-          {payments.map((payment, index) => (
+          {paymentItems.map((payment, index) => (
             <article className={styles.card} key={payment.title}>
               <span className={styles.number}>{String(index + 1).padStart(2, '0')}</span>
               <span className={styles.iconWrap}>

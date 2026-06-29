@@ -1,18 +1,20 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Footer.module.scss'
 
 const quickLinks = [
-  { label: 'Home', id: 'home' },
-  { label: 'Services', id: 'service-options' },
-  { label: 'About', id: 'about' },
-  { label: 'How It Works', id: 'how-it-works' },
-  { label: 'Payments', id: 'payments' },
+  { labelKey: 'nav.home', id: 'home' },
+  { labelKey: 'nav.services', id: 'service-options' },
+  { labelKey: 'nav.about', id: 'about' },
+  { labelKey: 'nav.howItWorks', id: 'how-it-works' },
+  { labelKey: 'nav.payments', id: 'payments' },
 ]
 
 function Footer({ onContactClick }) {
   const year = new Date().getFullYear()
   const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const handleSectionClick = (id) => {
     const scroll = () => {
@@ -33,31 +35,31 @@ function Footer({ onContactClick }) {
       <div className={`container ${styles.layout}`}>
         <div className={styles.brand}>
           <Link to="/">Green Team</Link>
-          <p>Professional ozone odor removal services in Chilliwack and the Fraser Valley.</p>
+          <p>{t('footer.brandCopy')}</p>
         </div>
 
         <nav aria-label="Quick links">
-          <h2>Quick Links</h2>
+          <h2>{t('footer.quickLinks')}</h2>
           {quickLinks.map((link) => (
             <button key={link.id} type="button" onClick={() => handleSectionClick(link.id)}>
-              {link.label}
+              {t(link.labelKey)}
             </button>
           ))}
           <button className={styles.footerCta} type="button" onClick={onContactClick}>
-            Book Service
+            {t('nav.bookService')}
           </button>
         </nav>
 
         <nav aria-label="Legal links">
-          <h2>Legal</h2>
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms">Terms of Use</Link>
-          <Link to="/cookies">Cookies Policy</Link>
+          <h2>{t('footer.legal')}</h2>
+          <Link to="/privacy-policy">{t('footer.privacy')}</Link>
+          <Link to="/terms">{t('footer.terms')}</Link>
+          <Link to="/cookies">{t('footer.cookies')}</Link>
         </nav>
       </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>&copy; {year} Green Team. All rights reserved.</p>
+        <p>&copy; {year} Green Team. {t('footer.rights')}</p>
       </div>
     </footer>
   )

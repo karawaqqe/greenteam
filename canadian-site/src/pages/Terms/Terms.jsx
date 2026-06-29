@@ -1,17 +1,17 @@
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Terms.module.scss'
 
 function Terms() {
+  const { t } = useLanguage()
+
   return (
     <section className={`legal-page ${styles.page}`}>
       <div className="container">
         <article className="legal-card">
-          <h1>Terms of Use</h1>
-          <p className="template-notice">Last updated: June 2026</p>
+          <h1>{t('legalPages.termsTitle')}</h1>
+          <p className="template-notice">{t('legalPages.updated')}</p>
 
-          <p>
-            By using this website, you agree to use it for lawful purposes and understand
-            that the information provided is general service information for Green Team.
-          </p>
+          <p>{t('legalPages.termsIntro')}</p>
 
           <h2>Service Information</h2>
           <p>
@@ -44,10 +44,8 @@ function Terms() {
             We may update website content, service details and these terms from time to time.
           </p>
 
-          <h2>Contact</h2>
-          <p>
-            Questions about these terms can be sent to gt.chilliwack@gmail.com.
-          </p>
+          <h2>{t('legalPages.contactHeading')}</h2>
+          <p>{t('legalPages.contactText')}</p>
         </article>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { getServiceBySlug } from '../../data/services.js'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './ServiceDetail.module.scss'
 
 function BriefcaseBusinessIcon({ className }) {
@@ -27,7 +27,8 @@ function BriefcaseBusinessIcon({ className }) {
 
 function ServiceDetail({ onContactClick }) {
   const { serviceSlug } = useParams()
-  const service = getServiceBySlug(serviceSlug)
+  const { serviceItems, t } = useLanguage()
+  const service = serviceItems.find((item) => item.slug === serviceSlug)
 
   if (!service) {
     return <Navigate to="/" replace />
@@ -40,14 +41,14 @@ function ServiceDetail({ onContactClick }) {
           <img className={styles.heroImage} src={service.image} alt="" aria-hidden="true" />
           <div className={`container ${styles.heroInner}`}>
             <Link className={styles.backLink} to="/#service-options">
-              Back to services
+              {t('detail.back')}
             </Link>
             <div className={styles.heroCopy}>
-              <span className="section-kicker">Ozone cleaning</span>
+              <span className="section-kicker">{t('detail.kicker')}</span>
               <h1>{service.title}</h1>
               <p>{service.heroText}</p>
               <div className={styles.heroFacts} aria-label="Service summary">
-                <span>From {service.startingFrom}</span>
+                <span>{t('detail.from')} {service.startingFrom}</span>
                 <span>{service.timeline}</span>
               </div>
             </div>
@@ -57,8 +58,8 @@ function ServiceDetail({ onContactClick }) {
         <section className={`section ${styles.details}`}>
           <div className={`container ${styles.detailsGrid}`}>
             <div className={styles.mainCopy}>
-              <span className="section-kicker">What we will do</span>
-              <h2 className="section-title">Cleaning plan for {service.title}</h2>
+              <span className="section-kicker">{t('detail.planKicker')}</span>
+              <h2 className="section-title">{t('detail.planTitlePrefix')} {service.title}</h2>
               <p className="section-copy">{service.overview}</p>
 
               <div className={styles.process}>
@@ -73,8 +74,8 @@ function ServiceDetail({ onContactClick }) {
 
             <div className={styles.priceColumn}>
               <aside className={styles.pricePanel} aria-label={`${service.title} pricing`}>
-                <h2>Prices</h2>
-                <p>Starting prices in Canadian dollars. Final quotes depend on size, odor level and access.</p>
+                <h2>{t('detail.prices')}</h2>
+                <p>{t('detail.pricesCopy')}</p>
                 <div className={styles.priceGroups}>
                   {service.pricing.map((group) => (
                     <section className={styles.priceGroup} key={group.group} aria-label={group.group}>
@@ -96,23 +97,17 @@ function ServiceDetail({ onContactClick }) {
               </aside>
 
               <div className={styles.contactCta}>
-                <button className="btn btn-primary" type="button" onClick={() => onContactClick(service.title)}>
-                  Book Service
+                <button className="btn btn-brand" type="button" onClick={() => onContactClick(service.title)}>
+                  {t('nav.bookService')}
                 </button>
               </div>
             </div>
           </div>
 
-          <section className={`container ${styles.safetyMetering}`} aria-label="Ozone monitoring and insurance">
+          <section className={`container ${styles.safetyMetering}`} aria-label={t('detail.monitoringAria')}>
             <div className={styles.monitoringCopy}>
-              <p>
-                We use professional ozone sensors and electronic ozone meters at every stage of
-                the service to monitor ozone levels in real time.
-              </p>
-              <p>
-                This helps us control the ozone concentration throughout the process and ensure
-                the treated area is safe to enter after the service is completed.
-              </p>
+              <p>{t('detail.monitoring1')}</p>
+              <p>{t('detail.monitoring2')}</p>
             </div>
 
             <div className={styles.insuranceNote}>
@@ -132,7 +127,7 @@ function ServiceDetail({ onContactClick }) {
                   <path d="m9 12 2 2 4-4" />
                 </svg>
               </span>
-              <p>Our company is fully insured for your peace of mind.</p>
+              <p>{t('detail.insured')}</p>
             </div>
           </section>
         </section>

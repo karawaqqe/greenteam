@@ -1,27 +1,5 @@
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './HowItWorks.module.scss'
-
-const steps = [
-  {
-    title: 'Request a Quote',
-    text: 'Customer contacts the company and explains the space or vehicle.',
-    icon: 'message',
-  },
-  {
-    title: 'Assessment & Booking',
-    text: 'The service is scheduled based on the size, location and odor issue.',
-    icon: 'calendar',
-  },
-  {
-    title: 'Ozone Treatment',
-    text: 'The ozone generator is used in an unoccupied space for the required treatment time.',
-    icon: 'machine',
-  },
-  {
-    title: 'Ventilation & Return',
-    text: 'The space is properly aired out before people or pets return.',
-    icon: 'air',
-  },
-]
 
 function StepIcon({ type }) {
   if (type === 'calendar') {
@@ -62,23 +40,23 @@ function StepIcon({ type }) {
 }
 
 function HowItWorks() {
+  const { t } = useLanguage()
+  const steps = t('how.steps')
+
   return (
     <section className={`section ${styles.section}`} id="how-it-works">
       <div className="container">
         <div className={styles.header}>
           <div>
-            <span className="section-kicker">How it works</span>
-            <h2 className="section-title">A clear process from quote to safe re-entry.</h2>
-            <p className={styles.subtitle}>
-              Our ozone odor removal process is simple, careful and designed to keep
-              each appointment clear from start to finish.
-            </p>
+            <span className="section-kicker">{t('how.kicker')}</span>
+            <h2 className="section-title">{t('how.title')}</h2>
+            <p className={styles.subtitle}>{t('how.subtitle')}</p>
           </div>
         </div>
 
         <div className={styles.process}>
           <div className={styles.processHeader}>
-            <span>Service flow</span>
+            <span>{t('how.flow')}</span>
           </div>
           <div className={styles.airLines} aria-hidden="true">
             <span />
@@ -106,8 +84,7 @@ function HowItWorks() {
               <path d="m23 32 6 6 13-15" />
             </svg>
             <p>
-              <strong>Ozone treatment must only be performed in unoccupied spaces.</strong>{' '}
-              People, pets and plants should not remain inside during treatment.
+              <strong>{t('how.noticeStrong')}</strong> {t('how.notice')}
             </p>
           </div>
         </div>

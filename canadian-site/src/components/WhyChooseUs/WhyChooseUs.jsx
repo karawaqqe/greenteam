@@ -1,40 +1,23 @@
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './WhyChooseUs.module.scss'
 
-const benefits = [
-  {
-    title: 'Mobile ozone service',
-    text: 'Service can be arranged for eligible vehicles, homes, rentals and commercial spaces.',
-  },
-  {
-    title: 'Residential & commercial',
-    text: 'Practical odor treatment support for private clients, hosts, offices and property managers.',
-  },
-  {
-    title: 'Clear communication',
-    text: 'You will know what to expect before, during and after the treatment appointment.',
-  },
-  {
-    title: 'Flexible booking',
-    text: 'Scheduling is based on the space, location, treatment time and required ventilation.',
-  },
-]
-
 function WhyChooseUs() {
+  const { t } = useLanguage()
+  const benefits = t('why.benefits')
+  const highlights = t('why.highlights')
+
   return (
     <section className={`section ${styles.section}`} id="why-choose-us">
       <div className={`container ${styles.layout}`}>
         <div className={styles.intro}>
-          <span className="section-kicker">Why choose us</span>
-          <h2 className="section-title">Professional, straightforward service without inflated promises.</h2>
-          <p>
-            We keep the process clear from the first call to the final ventilation window, so every
-            treatment is planned around the actual space instead of one-size-fits-all claims.
-          </p>
+          <span className="section-kicker">{t('why.kicker')}</span>
+          <h2 className="section-title">{t('why.title')}</h2>
+          <p>{t('why.copy')}</p>
 
-          <div className={styles.highlights} aria-label="Service highlights">
-            <span>Mobile service</span>
-            <span>Clear timing</span>
-            <span>No overpromising</span>
+          <div className={styles.highlights} aria-label={t('why.highlightsAria')}>
+            {highlights.map((highlight) => (
+              <span key={highlight}>{highlight}</span>
+            ))}
           </div>
         </div>
 

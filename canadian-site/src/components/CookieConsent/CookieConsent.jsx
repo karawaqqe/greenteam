@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './CookieConsent.module.scss'
 
 const consentStorageKey = 'green-team-cookie-consent'
@@ -8,6 +9,7 @@ function CookieConsent() {
   const [isVisible, setIsVisible] = useState(
     () => typeof window !== 'undefined' && !window.localStorage.getItem(consentStorageKey),
   )
+  const { t } = useLanguage()
 
   const saveConsent = (value) => {
     window.localStorage.setItem(consentStorageKey, value)
@@ -47,22 +49,19 @@ function CookieConsent() {
           </svg>
         </div>
         <div className={styles.copy}>
-          <h2 id="cookie-consent-title">Cookie preferences</h2>
-          <p>
-            We use necessary cookies and local storage to keep the site working and remember
-            your choice. Optional cookies may help us understand site performance.
-          </p>
+          <h2 id="cookie-consent-title">{t('cookie.title')}</h2>
+          <p>{t('cookie.copy')}</p>
           <div className={styles.links}>
-            <Link to="/cookies">Cookies Policy</Link>
-            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/cookies">{t('footer.cookies')}</Link>
+            <Link to="/privacy-policy">{t('footer.privacy')}</Link>
           </div>
         </div>
         <div className={styles.actions}>
           <button className="btn btn-primary" type="button" onClick={() => saveConsent('accepted')}>
-            Accept all
+            {t('cookie.accept')}
           </button>
           <button className={styles.secondaryButton} type="button" onClick={() => saveConsent('necessary')}>
-            Necessary only
+            {t('cookie.necessary')}
           </button>
         </div>
       </section>

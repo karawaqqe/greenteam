@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Contact.module.scss'
-
-const serviceTypes = [
-  'Homes & Rentals',
-  'Commercial & Property Managers',
-  'Cars',
-  'Gyms & Sports',
-  'RV & Boats',
-  'Hotels / Airbnb',
-  'Other',
-]
 
 function Contact({ selectedService = '', isModal = false, onClose }) {
   const hasSelectedService = Boolean(selectedService)
   const [submitStatus, setSubmitStatus] = useState('idle')
   const [submitError, setSubmitError] = useState('')
+  const { serviceItems, t } = useLanguage()
+  const serviceTypes = [...serviceItems.map((service) => service.title), t('contact.other')]
 
   useEffect(() => {
     if (!isModal) {
@@ -86,43 +79,40 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
     <>
       <div className={`container ${styles.layout}`}>
         <div className={styles.info}>
-          <span className="section-kicker">Contact</span>
+          <span className="section-kicker">{t('contact.kicker')}</span>
           <h2 className="section-title" id={isModal ? 'contact-modal-title' : undefined}>
-            Tell us about the odor issue and the space.
+            {t('contact.title')}
           </h2>
-          <p className="section-copy">
-            Share the service type, location and any useful details. We will follow up with
-            next steps and scheduling information.
-          </p>
+          <p className="section-copy">{t('contact.copy')}</p>
 
           <p className={styles.contactLine}>gt.chilliwack@gmail.com</p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <label>
-            Name
+            {t('contact.name')}
             <input name="name" type="text" autoComplete="name" required />
           </label>
           <label>
-            Email
+            {t('contact.email')}
             <input name="email" type="email" autoComplete="email" required />
           </label>
           <label>
-            Phone
+            {t('contact.phone')}
             <input name="phone" type="tel" autoComplete="tel" required />
           </label>
           {hasSelectedService ? (
             <div className={styles.selectedService}>
-              <span>Service Type</span>
+              <span>{t('contact.serviceType')}</span>
               <strong>{selectedService}</strong>
               <input name="serviceType" type="hidden" value={selectedService} />
             </div>
           ) : (
             <label>
-              Service Type
+              {t('contact.serviceType')}
               <select name="serviceType" defaultValue="" required>
                 <option value="" disabled>
-                  Select a service
+                  {t('contact.selectService')}
                 </option>
                 {serviceTypes.map((service) => (
                   <option key={service} value={service}>
@@ -133,23 +123,23 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
             </label>
           )}
           <label className={styles.fullWidth}>
-            Message
+            {t('contact.message')}
             <textarea name="message" rows="5" required />
           </label>
 
           <button className="btn btn-primary" type="submit" disabled={submitStatus === 'sending'}>
-            {submitStatus === 'sending' ? 'Sending...' : 'Send Request'}
+            {submitStatus === 'sending' ? t('contact.sending') : t('contact.send')}
           </button>
 
           {submitStatus === 'success' && (
             <p className={`${styles.statusMessage} ${styles.success}`}>
-              Thank you! Your request has been sent successfully.
+              {t('contact.success')}
             </p>
           )}
 
           {submitStatus === 'error' && (
             <p className={`${styles.statusMessage} ${styles.error}`}>
-              {submitError || 'Something went wrong. Please try again later.'}
+              {submitError || t('contact.fallbackError')}
             </p>
           )}
         </form>
@@ -167,7 +157,7 @@ function Contact({ selectedService = '', isModal = false, onClose }) {
           aria-labelledby="contact-modal-title"
           onMouseDown={(event) => event.stopPropagation()}
         >
-          <button className={styles.closeButton} type="button" aria-label="Close contact form" onClick={onClose}>
+          <button className={styles.closeButton} type="button" aria-label={t('contact.close')} onClick={onClose}>
             x
           </button>
           <div className={styles.modalContainer}>{content}</div>

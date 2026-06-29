@@ -1,7 +1,10 @@
 import heroImage from '../../assets/images/ozone-service-hero.png'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Hero.module.scss'
 
 function Hero({ onContactClick }) {
+  const { t } = useLanguage()
+
   return (
     <section className={styles.hero} id="home">
       <img
@@ -12,18 +15,13 @@ function Hero({ onContactClick }) {
       <span className={styles.topCut} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>
         <div className={styles.content}>
-          <p className={styles.kicker}>Chilliwack & Fraser Valley</p>
-          <h1>Professional Ozone Odor Removal Services</h1>
-          <p className={styles.subtitle}>
-            Ozone treatment for cars, homes, rentals, commercial spaces and more.
-          </p>
-          <p className={styles.description}>
-            Helping reduce tough odors from smoke, pets, food, mustiness and everyday use
-            across Chilliwack and the Fraser Valley.
-          </p>
+          <p className={styles.kicker}>{t('hero.kicker')}</p>
+          <h1>{t('hero.title')}</h1>
+          <p className={styles.subtitle}>{t('hero.subtitle')}</p>
+          <p className={styles.description}>{t('hero.description')}</p>
           <div className={styles.actions}>
-            <button className="btn btn-secondary" type="button" onClick={onContactClick}>
-              Book Service
+            <button className="btn btn-brand" type="button" onClick={onContactClick}>
+              {t('nav.bookService')}
             </button>
           </div>
         </div>

@@ -7,13 +7,15 @@ import gymIcon from '../../assets/icons/gym-transparent.png'
 import homeIcon from '../../assets/icons/home-transparent.png'
 import hotelIcon from '../../assets/icons/hotel-transparent.png'
 import logo from '../../assets/logo/logo_no_background_true_transparent.png'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.jsx'
 import styles from './Header.module.scss'
 
 const navItems = [
-  { label: 'Home', id: 'home' },
-  { label: 'How It Works', id: 'how-it-works' },
-  { label: 'About', id: 'about' },
-  { label: 'Payments', id: 'payments' },
+  { labelKey: 'nav.home', id: 'home' },
+  { labelKey: 'nav.howItWorks', id: 'how-it-works' },
+  { labelKey: 'nav.about', id: 'about' },
+  { labelKey: 'nav.payments', id: 'payments' },
 ]
 
 const serviceLinks = [
@@ -29,6 +31,11 @@ function Header({ onContactClick }) {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const { serviceItems, t } = useLanguage()
+  const localizedServiceLinks = serviceLinks.map((service) => ({
+    ...service,
+    title: serviceItems.find((item) => item.slug === service.slug)?.title || service.title,
+  }))
 
   useEffect(() => {
     if (!isOpen) {
@@ -74,21 +81,9 @@ function Header({ onContactClick }) {
           </span>
         </Link>
 
-        <button
-          className={styles.menuButton}
-          type="button"
-          aria-label="Toggle navigation menu"
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((current) => !current)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-
         <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ''}`} aria-label="Main navigation">
           <button type="button" onClick={() => scrollToSection('home')}>
-            Home
+            {t('nav.home')}
           </button>
           <div className={styles.servicesItem}>
             <button
@@ -96,10 +91,10 @@ function Header({ onContactClick }) {
               type="button"
               onClick={() => scrollToSection('service-options')}
             >
-              Services
+              {t('nav.services')}
             </button>
             <div className={styles.servicesMenu} aria-label="Service pages">
-              {serviceLinks.map((service) => (
+              {localizedServiceLinks.map((service) => (
                 <Link
                   className={styles.serviceLink}
                   to={`/services/${service.slug}`}
@@ -116,13 +111,28 @@ function Header({ onContactClick }) {
           </div>
           {navItems.slice(1).map((item) => (
             <button key={item.id} type="button" onClick={() => scrollToSection(item.id)}>
-              {item.label}
+              {t(item.labelKey)}
             </button>
           ))}
           <button className={styles.navCta} type="button" onClick={() => { setIsOpen(false); onContactClick?.() }}>
-            Book Service
+            {t('nav.bookService')}
           </button>
         </nav>
+
+        <div className={styles.rightTools}>
+          <LanguageSwitcher />
+          <button
+            className={styles.menuButton}
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((current) => !current)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
     </header>
   )

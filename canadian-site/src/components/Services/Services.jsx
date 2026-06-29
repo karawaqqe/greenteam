@@ -1,20 +1,19 @@
-import { services } from '../../data/services.js'
+import { useLanguage } from '../../i18n/LanguageContext.jsx'
 import styles from './Services.module.scss'
 
 function Services() {
+  const { serviceItems, t } = useLanguage()
+
   return (
     <section className={`section ${styles.section}`} id="services">
       <div className="container">
-        <span className="section-kicker">About</span>
-        <h2 className="section-title">Odor treatment options for vehicles, homes and businesses.</h2>
-        <p className="section-copy">
-          Professional ozone treatment is designed for unwanted odors caused by smoke,
-          pets, food, moisture, stale air and regular use.
-        </p>
+        <span className="section-kicker">{t('servicesSection.kicker')}</span>
+        <h2 className="section-title">{t('servicesSection.title')}</h2>
+        <p className="section-copy">{t('servicesSection.copy')}</p>
 
-        <div className={styles.accordion} aria-label="Ozone odor removal services">
+        <div className={styles.accordion} aria-label={t('servicesSection.aria')}>
           <div className={styles.row}>
-            {services.map((service) => (
+            {serviceItems.map((service) => (
               <article className={styles.card} key={service.title} tabIndex="0">
                 <img
                   className={styles.image}
