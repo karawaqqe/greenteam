@@ -20,6 +20,8 @@ export const translations = {
       subtitle: 'Ozone treatment for cars, homes, rentals, commercial spaces and more.',
       description:
         'Helping reduce tough odors from smoke, pets, food, mustiness and everyday use across Chilliwack and the Fraser Valley.',
+      extraDescription:
+        'Professional ozone treatment provides effective odor removal, air purification and deep cleaning of indoor spaces. It helps reduce bacteria, mold spores and other microorganisms while restoring a fresher, cleaner environment.',
     },
     serviceTiles: {
       aria: 'Choose a service',
@@ -202,6 +204,8 @@ export const translations = {
       subtitle: 'Traitement à l’ozone pour voitures, maisons, locations, espaces commerciaux et plus.',
       description:
         'Nous aidons à réduire les odeurs tenaces de fumée, d’animaux, de nourriture, d’humidité, d’air vicié et d’usage quotidien à Chilliwack et dans la vallée du Fraser.',
+      extraDescription:
+        'Le traitement professionnel à l’ozone permet une élimination efficace des odeurs, une purification de l’air et un nettoyage en profondeur des espaces intérieurs. Il aide à réduire les bactéries, les spores de moisissure et d’autres micro-organismes tout en rétablissant un environnement plus frais et plus propre.',
     },
     serviceTiles: {
       aria: 'Choisir un service',

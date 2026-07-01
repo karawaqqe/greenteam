@@ -19,6 +19,7 @@ function Hero({ onContactClick }) {
           <h1>{t('hero.title')}</h1>
           <p className={styles.subtitle}>{t('hero.subtitle')}</p>
           <p className={styles.description}>{t('hero.description')}</p>
+          <p className={styles.description}>{t('hero.extraDescription')}</p>
           <div className={styles.actions}>
             <button className="btn btn-brand" type="button" onClick={onContactClick}>
               {t('nav.bookService')}
